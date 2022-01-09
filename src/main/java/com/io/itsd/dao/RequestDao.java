@@ -7,4 +7,6 @@ import java.util.List;
 public interface RequestDao {
 
     List<Request> retrieveAllRequests();
+
+    
 }

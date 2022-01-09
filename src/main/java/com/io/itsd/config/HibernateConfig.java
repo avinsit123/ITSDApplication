@@ -40,10 +40,9 @@ public class HibernateConfig {
         org.hibernate.cfg.Configuration cfg = new org.hibernate.cfg.Configuration();
 
         // todo: Add All Entity Classes to annotated class.
-        SessionFactory factory = cfg.setProperties(properties)
+        return cfg.setProperties(properties)
                 .addAnnotatedClass(Request.class)
                 .buildSessionFactory();
-        return factory;
     }
 
 }
