@@ -5,6 +5,7 @@ import com.io.itsd.model.types.RequestStatus;
 import javax.persistence.*;
 import java.sql.Time;
 import java.time.OffsetDateTime;
+import java.util.UUID;
 
 @Entity
 @Table(name="request")
@@ -18,7 +19,7 @@ public class Request {
     private String assigneeName;
 
     @Column(name = "status")
-    private RequestStatus status;
+    private String status;
 
     @Column(name = "title")
     private String title;
@@ -27,11 +28,51 @@ public class Request {
     private String description;
 
     @Column(name = "created_at")
-    private OffsetDateTime creationTime;
+    private String creationTime;
 
     @Column(name = "updated_at")
-    private OffsetDateTime updationTime;
+    private String updationTime;
 
     @Column(name = "customer")
     private String Customer;
+
+    public Request setAssigneeName(String assigneeName) {
+        this.assigneeName = assigneeName;
+        return this;
+    }
+
+    public Request setStatus(String status) {
+        this.status = status;
+        return this;
+    }
+
+    public Request setTitle(String title) {
+        this.title = title;
+        return this;
+    }
+
+    public Request setDescription(String description) {
+        this.description = description;
+        return this;
+    }
+
+    public Request setCreationTime(String creationTime) {
+        this.creationTime = creationTime;
+        return this;
+    }
+
+    public Request setUpdationTime(String updationTime) {
+        this.updationTime = updationTime;
+        return this;
+    }
+
+    public Request setCustomer(String customer) {
+        Customer = customer;
+        return this;
+    }
+
+    public Request setId(String id) {
+        this.id = id;
+        return this;
+    }
 }

@@ -6,6 +6,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Component
@@ -22,9 +23,18 @@ public class RequestDaoImpl implements RequestDao {
     @Override
     public List<Request> retrieveAllRequests() {
          Session session =  sessionFactory.openSession();
-         List requestList = session.createQuery("from Request", Request.class).list();
+         session.beginTransaction();
+         List<Request> requestList = session.createQuery("from Request", Request.class).list();
+         session.getTransaction().commit();
          return requestList;
     }
 
+    @Override
+    public void createRequest(Request request) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        session.persist(request);
+        session.getTransaction().commit();
+    }
 
 }

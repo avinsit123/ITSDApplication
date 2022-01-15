@@ -8,5 +8,5 @@ public interface RequestDao {
 
     List<Request> retrieveAllRequests();
 
-    
+    void createRequest(Request request);
 }
