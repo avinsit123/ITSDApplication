@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface RequestDao {
 
-    List<Request> retrieveAllRequests();
+    List<Request> retrieveRequests(String hqlQuery);
 
     void createRequest(Request request);
 }

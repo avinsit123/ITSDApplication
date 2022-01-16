@@ -75,4 +75,36 @@ public class Request {
         this.id = id;
         return this;
     }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getAssigneeName() {
+        return assigneeName;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getCreationTime() {
+        return creationTime;
+    }
+
+    public String getUpdationTime() {
+        return updationTime;
+    }
+
+    public String getCustomer() {
+        return Customer;
+    }
 }

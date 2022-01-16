@@ -13,6 +13,7 @@ import java.util.List;
 public class RequestDaoImpl implements RequestDao {
 
 
+
     private SessionFactory sessionFactory;
 
     @Autowired
@@ -21,13 +22,15 @@ public class RequestDaoImpl implements RequestDao {
     }
 
     @Override
-    public List<Request> retrieveAllRequests() {
+    public List<Request> retrieveRequests(String hqlQuery) {
          Session session =  sessionFactory.openSession();
          session.beginTransaction();
-         List<Request> requestList = session.createQuery("from Request", Request.class).list();
+         List<Request> requestList = session.createQuery(hqlQuery, Request.class).list();
          session.getTransaction().commit();
          return requestList;
     }
+
+
 
     @Override
     public void createRequest(Request request) {

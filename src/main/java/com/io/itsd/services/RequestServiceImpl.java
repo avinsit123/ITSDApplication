@@ -1,5 +1,6 @@
 package com.io.itsd.services;
 
+import com.io.itsd.HibernateQueryBuilder;
 import com.io.itsd.controller.data.CreateRequestBody;
 import com.io.itsd.dao.RequestDao;
 import com.io.itsd.model.Request;
@@ -16,14 +17,14 @@ public class RequestServiceImpl implements RequestService {
 
     private RequestDao requestDao;
 
-    @Autowired
-    public RequestServiceImpl(RequestDao requestDao) {
-        this.requestDao = requestDao;
-    }
+    private HibernateQueryBuilder hibernateQueryBuilder;
 
-    @Override
-    public List<Request> getAllRequests() {
-        return requestDao.retrieveAllRequests();
+    private static final String REQUEST_TABLE_NAME = "Request";
+
+    @Autowired
+    public RequestServiceImpl(RequestDao requestDao, HibernateQueryBuilder hibernateQueryBuilder) {
+        this.requestDao = requestDao;
+        this.hibernateQueryBuilder = hibernateQueryBuilder;
     }
 
     @Override
@@ -39,6 +40,24 @@ public class RequestServiceImpl implements RequestService {
                 .setTitle(createRequestBody.getTitle());
 
         requestDao.createRequest(newRequest);
+    }
+
+    @Override
+    public Request getRequestById(String requestId) {
+       hibernateQueryBuilder.flush();
+       String getRequestByIdHqlQuery = hibernateQueryBuilder.setTableName(REQUEST_TABLE_NAME)
+               .addEqualityFilter("id", requestId)
+               .addOrderBy("id", true)
+               .returnHqlQuery();
+       return requestDao.retrieveRequests(getRequestByIdHqlQuery).get(0);
+    }
+
+    @Override
+    public List<Request> getAllRequests() {
+        hibernateQueryBuilder.flush();
+        String getAllRequestsHqlQuery = hibernateQueryBuilder.setTableName(REQUEST_TABLE_NAME)
+                .returnHqlQuery();
+        return requestDao.retrieveRequests(getAllRequestsHqlQuery);
     }
 
 }

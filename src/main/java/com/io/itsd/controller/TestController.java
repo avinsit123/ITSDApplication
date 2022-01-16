@@ -16,7 +16,7 @@ public class TestController {
 
     @GetMapping("/asd")
     private String asd() {
-        List<Request> requestList = requestDao.retrieveAllRequests();
+        List<Request> requestList = requestDao.retrieveRequests("From Request");
         System.out.println(requestList.get(0).toString());
         return "hello";
     }

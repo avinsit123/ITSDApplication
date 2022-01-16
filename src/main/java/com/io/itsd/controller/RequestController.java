@@ -9,6 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.view.RedirectView;
+
+import java.util.List;
 
 @Controller
 public class RequestController {
@@ -35,10 +38,22 @@ public class RequestController {
     }
 
     @PostMapping(REQUEST_BASE_URL + "/insertRequest")
-    public String insertRequest(@ModelAttribute CreateRequestBody createRequestBody) {
-        logger.info("Creating request with body: " + createRequestBody);
+    public RedirectView insertRequest(@ModelAttribute CreateRequestBody createRequestBody) {
         requestService.createRequest(createRequestBody);
-        return "hello";
+        return new RedirectView("viewAllRequests");
     }
 
+    @GetMapping(REQUEST_BASE_URL + "/viewAllRequests")
+    public String viewAllRequests(Model model) {
+        List<Request> requestList = requestService.getAllRequests();
+        model.addAttribute("requestList", requestList);
+        return "ViewAllRequests";
+    }
+
+    @GetMapping(REQUEST_BASE_URL + "/viewRequest/{id}")
+    public String viewRequest(Model model, @PathVariable String id) {
+        Request request = requestService.getRequestById(id);
+        model.addAttribute("request", request);
+        return "ViewRequest";
+    }
 }
