@@ -28,15 +28,27 @@
         <ta th:each="request : ${requestList}">
 
         <tr>
-            <td th:text="${request.id}"></td>
-            <a th:href = "@{'/request/viewRequest/' + ${request.id}}">
-                <td th:text="${request.title}"></td>
-            </a>
+            <td>
+                <a th:href = "@{'/request/viewRequest/' + ${request.id}}"> Id
+            </a></td>
+            <td th:text="${request.title}"></td>
             <td th:text="${request.customer}"></td>
             <td th:text="${request.creationTime}"></td>
             <td th:text="${request.updationTime}"></td>
             <td th:text="${request.assigneeName}"></td>
-            <td th:text="${request.status}"></td>
+            <td>
+                <th:block th:switch="${request.status}">
+                    <div th:case="OPEN">
+                        <button type="button" class="btn btn-secondary" th:value="Open">Open</button>
+                    </div>
+                    <div th:case="IN_PROGRESS">
+                        <button type="button" class="btn btn-primary" th:value="In Progress">In Progress</button>
+                    </div>
+                    <div th:case="CLOSED">
+                        <button type="button" class="btn btn-success" th:value="Closed">Closed</button>
+                    </div>
+                </th:block>
+            </td>
         </tr>
         </ta>
     </table>

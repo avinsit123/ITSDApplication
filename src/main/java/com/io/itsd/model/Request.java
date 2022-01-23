@@ -1,11 +1,6 @@
 package com.io.itsd.model;
 
-import com.io.itsd.model.types.RequestStatus;
-
 import javax.persistence.*;
-import java.sql.Time;
-import java.time.OffsetDateTime;
-import java.util.UUID;
 
 @Entity
 @Table(name="request")

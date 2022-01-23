@@ -12,8 +12,6 @@ import java.util.List;
 @Component
 public class RequestDaoImpl implements RequestDao {
 
-
-
     private SessionFactory sessionFactory;
 
     @Autowired

@@ -26,11 +26,6 @@ public class RequestController {
         this.requestService = requestService;
     }
 
-    @RequestMapping(value = REQUEST_BASE_URL + "/hello" , method = RequestMethod.GET)
-    public String helloWorld() {
-        return "hello";
-    }
-
     @GetMapping(REQUEST_BASE_URL + "/createRequestView")
     public String createRequest(Model model) {
         model.addAttribute("createRequestBody", new CreateRequestBody());
