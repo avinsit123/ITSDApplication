@@ -16,7 +16,6 @@ import java.util.UUID;
 public class RequestServiceImpl implements RequestService {
 
     private RequestDao requestDao;
-
     private HibernateQueryBuilder hibernateQueryBuilder;
 
     private static final String REQUEST_TABLE_NAME = "Request";
