@@ -4,7 +4,11 @@ public class CreateCustomerBody {
 
     private String name;
 
-    private String email;
+    private String ownerName;
+
+    private String ownerEmail;
+
+    private String ownerPassword;
 
     public String getName() {
         return name;
@@ -15,12 +19,30 @@ public class CreateCustomerBody {
         return this;
     }
 
-    public String getEmail() {
-        return email;
+    public String getOwnerName() {
+        return ownerName;
     }
 
-    public CreateCustomerBody setEmail(String email) {
-        this.email = email;
+    public CreateCustomerBody setOwnerName(String ownerName) {
+        this.ownerName = ownerName;
+        return this;
+    }
+
+    public String getOwnerEmail() {
+        return ownerEmail;
+    }
+
+    public CreateCustomerBody setOwnerEmail(String ownerEmail) {
+        this.ownerEmail = ownerEmail;
+        return this;
+    }
+
+    public String getOwnerPassword() {
+        return ownerPassword;
+    }
+
+    public CreateCustomerBody setOwnerPassword(String ownerPassword) {
+        this.ownerPassword = ownerPassword;
         return this;
     }
 }

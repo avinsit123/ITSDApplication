@@ -2,7 +2,9 @@ package com.io.itsduser.dao;
 
 import com.io.itsduser.model.Customer;
 
+import java.util.Optional;
+
 public interface CustomerDao {
 
-    void insertCustomer(Customer customer);
+    Optional<String> insertCustomer(Customer customer);
 }

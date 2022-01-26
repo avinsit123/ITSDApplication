@@ -16,5 +16,11 @@ psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-E
     created_at CHAR(100),
     updated_at CHAR(100),
     customer CHAR(100));
+
+    CREATE TABLE IF NOT EXISTS customer (
+    id CHAR(100) UNIQUE NOT NULL PRIMARY KEY,
+    name CHAR(100),
+    email CHAR(100)
+    );
   COMMIT;
 EOSQL

@@ -1,6 +1,8 @@
 package com.io.itsd.config;
 
 import com.io.itsd.model.Request;
+import com.io.itsduser.model.Customer;
+import com.io.itsduser.model.User;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -42,6 +44,8 @@ public class HibernateConfig {
         // todo: Add All Entity Classes to annotated class.
         return cfg.setProperties(properties)
                 .addAnnotatedClass(Request.class)
+                .addAnnotatedClass(Customer.class)
+                .addAnnotatedClass(User.class)
                 .buildSessionFactory();
     }
 
