@@ -17,17 +17,14 @@ import java.util.UUID;
 public class CustomerServiceImpl implements CustomerService{
 
     private final CustomerDao customerDao;
-    private final UserService userService;
     private HibernateQueryBuilder hibernateQueryBuilder;
 
-    private static final String CUSTOMER_TABLE_NAME = "customer";
+    private static final String CUSTOMER_TABLE_NAME = "Customer";
 
     @Autowired
     public CustomerServiceImpl(CustomerDao customerDao,
-                               UserService userService,
                                HibernateQueryBuilder hibernateQueryBuilder) {
         this.customerDao = customerDao;
-        this.userService = userService;
         this.hibernateQueryBuilder = hibernateQueryBuilder;
     }
 
@@ -68,13 +65,4 @@ public class CustomerServiceImpl implements CustomerService{
         return customerDao.get(hibernateQueryBuilder.returnHqlQuery());
     }
 
-    private Customer retrieveCustomerWithFilters(HashMap<String, String> filters) {
-        hibernateQueryBuilder.flush();
-        hibernateQueryBuilder = hibernateQueryBuilder.setTableName(CUSTOMER_TABLE_NAME);
-        for(String attribute : filters.keySet())
-            hibernateQueryBuilder.addEqualityFilter(attribute, filters.get(attribute));
-        Customer firstCustomer = customerDao.get(hibernateQueryBuilder.returnHqlQuery())
-                .get(0);
-        return firstCustomer;
-    }
 }

@@ -58,4 +58,19 @@ public class UserDao implements Dao<User> {
         return userList;
     }
 
+    @Override
+    public void deleteUsingId(String id) {
+        Session session = sessionFactory.openSession();
+        try {
+            session.beginTransaction();
+            User userToBeDeleted = session.get(User.class, id);
+            session.delete(userToBeDeleted);
+        } catch (RuntimeException e) {
+            logger.error("User Deletion from DB failed with reason {}", e.getMessage());
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+    }
+
 }

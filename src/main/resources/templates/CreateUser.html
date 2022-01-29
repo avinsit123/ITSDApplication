@@ -8,33 +8,45 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/i18n/defaults-*.min.js"></script>
 </head>
 <body>
 
 <div class="container">
-  <h1> Create New Customer!!</h1>
-  <form method="post"  th:action="@{/user/insert}" th:object="${createCustomerBody}">
+  <hr>
+  <h1> Create New User!!</h1>
+  <hr>
+  <form method="post"  th:action="@{/user/insert}" th:object="${createUserBody}">
     <div class="form-group">
-      <label for="name">Customer Name</label>
-      <input type="name" class="form-control" id="name" required placeholder="Enter Customer Name" name="name" th:field="*{name}">
+      <label for="name">Name</label>
+      <input type="name" class="form-control" id="name" required placeholder="Enter User Name" name="name" th:field="*{name}">
     </div>
 
     <div class="form-group">
-      <label for="ownerName">Owner Name</label>
-      <input type="ownerName" class="form-control" id="ownerName" required placeholder="Enter Owner Name" name="ownerName" th:field="*{ownerName}">
+    <label for="phone">Phone Number</label>
+    <input type="tel" class="form-control" id="phone" required placeholder="Enter User Phone"  name="phone" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" th:field="*{phone}">
     </div>
 
     <div class="form-group">
       <label for="email">Email</label>
-      <input type="email" class="form-control" id="email" required placeholder="Enter Owner Email" name="email" th:field="*{ownerEmail}">
+      <input type="email" class="form-control" id="email" required placeholder="Enter User Email" name="email" th:field="*{email}">
     </div>
 
     <div class="form-group">
       <label for="password">Password</label>
-      <input type="password" class="form-control" id="password" required placeholder="Enter Password" name="password" th:field="*{ownerPassword}">
+      <input type="password" class="form-control" id="password" required placeholder="Enter Password" name="password" th:field="*{password}">
     </div>
 
-    <button type="submit" class="btn btn-primary">Create Customer</button>
+    <div class="form-group">
+      <label for="customerName">Customer Name</label>
+      <input type="customerName" class="form-control" id="customerName" required placeholder="Enter Customer Name" name="customerName" th:field="*{customerName}">
+    </div>
+
+    <button type="submit" class="btn btn-primary">Create User</button>
   </form>
 </div>
 

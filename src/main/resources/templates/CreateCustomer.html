@@ -12,7 +12,9 @@
 <body>
 
 <div class="container">
+  <hr>
   <h1> Create New Customer!!</h1>
+  <hr>
   <form method="post"  th:action="@{/customer/insert}" th:object="${createCustomerBody}">
     <div class="form-group">
       <label for="name">Customer Name</label>

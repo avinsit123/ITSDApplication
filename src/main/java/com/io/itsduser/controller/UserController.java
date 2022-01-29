@@ -9,8 +9,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class UserController {
@@ -18,7 +20,7 @@ public class UserController {
     private final CustomerService customerService;
     private final UserService userService;
 
-    private static final String USER_BASE_URL = "/customer";
+    private static final String USER_BASE_URL = "/user";
 
     @Autowired
     public UserController(CustomerService customerService, UserService userService) {
@@ -29,11 +31,15 @@ public class UserController {
     @GetMapping(value = USER_BASE_URL + "/create")
     public String createUser(Model model) {
         List<Customer> allCustomers = customerService.getAllCustomers();
-        model.addAttribute("customerList", allCustomers);
+        List<String> allCustomerNames = allCustomers.stream()
+                .map(Customer::getName)
+                .collect(Collectors.toList());
+        model.addAttribute("customerNames", allCustomerNames);
         model.addAttribute("createUserBody", new CreateUserBody());
         return "CreateUser";
     }
 
+    @PostMapping(value = USER_BASE_URL + "/insert")
     public String insertUser(@ModelAttribute CreateUserBody createUserBody) {
         userService.createUser(createUserBody);
         return "hello";

@@ -9,4 +9,6 @@ public interface Dao<T> {
 
     List<T> get(String hqlQuery);
 
+    void deleteUsingId(String id);
+
 }

@@ -18,7 +18,7 @@ public class UserServiceImpl implements UserService{
     private CustomerService customerService;
     private HibernateQueryBuilder hibernateQueryBuilder;
 
-    private static final String USER_TABLE_NAME = "user";
+    private static final String USER_TABLE_NAME = "itsd_user";
 
     @Autowired
     public UserServiceImpl(UserDao userDao, HibernateQueryBuilder hibernateQueryBuilder,
@@ -29,6 +29,7 @@ public class UserServiceImpl implements UserService{
     }
 
     public void createUser(CreateUserBody createUserBody) {
+
         User user = new User().setId(UUID.randomUUID().toString())
                 .setName(createUserBody.getName())
                 .setEmail(createUserBody.getEmail())
@@ -37,7 +38,6 @@ public class UserServiceImpl implements UserService{
 
         Customer customer = customerService.retrieveCustomerUsingName(createUserBody.getCustomerName());
         user.setCustomerId(customer.getId());
-
         userDao.insert(user);
     }
 }

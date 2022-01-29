@@ -43,6 +43,7 @@ public class CustomerDao implements Dao<Customer> {
         return Optional.ofNullable(customer.getId());
     }
 
+    @Override
     public List<Customer> get(String hqlQuery) {
         Session session = sessionFactory.openSession();
         List<Customer> customerList = new ArrayList<>();
@@ -50,7 +51,7 @@ public class CustomerDao implements Dao<Customer> {
             session.beginTransaction();
             customerList = session.createQuery(hqlQuery, Customer.class).getResultList();
             session.getTransaction().commit();
-            logger.info("Retrieved {}) customers from DB", customerList.size());
+            logger.info("Retrieved {} customers from DB", customerList.size());
         } catch (RuntimeException e) {
             logger.error("Customer Retrieval from DB failed due to reason {}", e.getMessage());
             e.printStackTrace();
@@ -58,5 +59,10 @@ public class CustomerDao implements Dao<Customer> {
             session.close();
         }
         return customerList;
+    }
+
+    @Override
+    public void deleteUsingId(String id) {
+
     }
 }
