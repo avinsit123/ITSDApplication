@@ -1,9 +1,6 @@
 package com.io.itsduser.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "itsd_user")
@@ -12,9 +9,6 @@ public class User {
     @Id
     @Column(name = "id")
     private String id;
-
-    @Column(name = "customer_id")
-    private String customerId;
 
     @Column(name = "name")
     private String name;
@@ -28,14 +22,8 @@ public class User {
     @Column(name = "role")
     private String role;
 
-    public String getId() {
-        return id;
-    }
-
-    public User setId(String id) {
-        this.id = id;
-        return this;
-    }
+    @Column(name = "customer_id")
+    private String customerId;
 
     public String getCustomerId() {
         return customerId;
@@ -43,6 +31,15 @@ public class User {
 
     public User setCustomerId(String customerId) {
         this.customerId = customerId;
+        return this;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public User setId(String id) {
+        this.id = id;
         return this;
     }
 

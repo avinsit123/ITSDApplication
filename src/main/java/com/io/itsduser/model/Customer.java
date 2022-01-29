@@ -1,9 +1,6 @@
 package com.io.itsduser.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "itsd_customer")
@@ -18,6 +15,19 @@ public class Customer {
 
     @Column(name = "email")
     private String email;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "itsd_admin_id")
+    private User adminUser;
+
+    public User getUser() {
+        return adminUser;
+    }
+
+    public Customer setUser(User adminUser) {
+        this.adminUser = adminUser;
+        return this;
+    }
 
     public String getId() {
         return id;

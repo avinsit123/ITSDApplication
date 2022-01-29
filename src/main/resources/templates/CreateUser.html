@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th=https://www.thymeleaf.org>
+<head>
+  <title>Create New User</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+  <h1> Create New Customer!!</h1>
+  <form method="post"  th:action="@{/user/insert}" th:object="${createCustomerBody}">
+    <div class="form-group">
+      <label for="name">Customer Name</label>
+      <input type="name" class="form-control" id="name" required placeholder="Enter Customer Name" name="name" th:field="*{name}">
+    </div>
+
+    <div class="form-group">
+      <label for="ownerName">Owner Name</label>
+      <input type="ownerName" class="form-control" id="ownerName" required placeholder="Enter Owner Name" name="ownerName" th:field="*{ownerName}">
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="email" class="form-control" id="email" required placeholder="Enter Owner Email" name="email" th:field="*{ownerEmail}">
+    </div>
+
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" class="form-control" id="password" required placeholder="Enter Password" name="password" th:field="*{ownerPassword}">
+    </div>
+
+    <button type="submit" class="btn btn-primary">Create Customer</button>
+  </form>
+</div>
+
+
+</body>
+</html>

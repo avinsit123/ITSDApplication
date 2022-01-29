@@ -9,7 +9,8 @@ import com.io.itsduser.model.types.UserRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.Optional;
+import java.util.HashMap;
+import java.util.List;
 import java.util.UUID;
 
 @Component
@@ -31,17 +32,49 @@ public class CustomerServiceImpl implements CustomerService{
     }
 
     public void createCustomer(CreateCustomerBody createCustomerBody) {
-        Customer newCustomer = new Customer().setId(UUID.randomUUID().toString())
-                .setName(createCustomerBody.getName())
-                .setEmail(createCustomerBody.getOwnerEmail());
 
         User ownerUser = new User().setId(UUID.randomUUID().toString())
-                .setCustomerId(newCustomer.getId())
                 .setPassword(createCustomerBody.getOwnerPassword())
                 .setName(createCustomerBody.getOwnerName())
-                .setRole(UserRole.OWNER.toString());
+                .setRole(UserRole.OWNER.toString())
+                .setEmail(createCustomerBody.getOwnerEmail());
 
-        customerDao.insertCustomer(newCustomer);
-        userService.createUser(ownerUser);
+        Customer newCustomer = new Customer().setId(UUID.randomUUID().toString())
+                .setName(createCustomerBody.getName())
+                .setEmail(createCustomerBody.getOwnerEmail())
+                .setUser(ownerUser);
+
+        ownerUser.setCustomerId(newCustomer.getId());
+
+        customerDao.insert(newCustomer);
+    }
+
+    @Override
+    public List<Customer> getAllCustomers() {
+        hibernateQueryBuilder.flush();
+        final String retrieveAllCustomersHqlQuery = hibernateQueryBuilder.setTableName(CUSTOMER_TABLE_NAME)
+                .returnHqlQuery();
+        return customerDao.get(retrieveAllCustomersHqlQuery);
+    }
+
+    public Customer retrieveCustomerUsingName(String name) {
+        return retrieveCustomersWithFilter("name", name).get(0);
+    }
+
+    private List<Customer> retrieveCustomersWithFilter(String attribute, String cutoffValue) {
+        hibernateQueryBuilder.flush();
+        hibernateQueryBuilder = hibernateQueryBuilder.setTableName(CUSTOMER_TABLE_NAME);
+        hibernateQueryBuilder.addEqualityFilter(attribute, cutoffValue);
+        return customerDao.get(hibernateQueryBuilder.returnHqlQuery());
+    }
+
+    private Customer retrieveCustomerWithFilters(HashMap<String, String> filters) {
+        hibernateQueryBuilder.flush();
+        hibernateQueryBuilder = hibernateQueryBuilder.setTableName(CUSTOMER_TABLE_NAME);
+        for(String attribute : filters.keySet())
+            hibernateQueryBuilder.addEqualityFilter(attribute, filters.get(attribute));
+        Customer firstCustomer = customerDao.get(hibernateQueryBuilder.returnHqlQuery())
+                .get(0);
+        return firstCustomer;
     }
 }

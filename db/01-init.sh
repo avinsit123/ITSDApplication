@@ -19,24 +19,25 @@ psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-E
     PRIMARY KEY(id)
     );
 
+    CREATE TABLE IF NOT EXISTS itsd_user (
+    id CHAR(100) UNIQUE NOT NULL,
+    name CHAR(100),
+    email CHAR(100),
+    password CHAR(100),
+    customer_id CHAR(100),
+    role CHAR(100),
+    PRIMARY KEY(id));
+
     CREATE TABLE IF NOT EXISTS itsd_customer (
     id CHAR(100) UNIQUE NOT NULL,
     name CHAR(100),
     email CHAR(100),
-    PRIMARY KEY(id)
-    );
-
-    CREATE TABLE IF NOT EXISTS itsd_user (
-    id CHAR(100) UNIQUE NOT NULL,
-    customer_id CHAR(100),
-    name CHAR(100),
-    email CHAR(100),
-    password CHAR(100),
-    role CHAR(100),
+    itsd_admin_id CHAR(100),
     PRIMARY KEY(id),
     CONSTRAINT customer_user
-    FOREIGN KEY(customer_id)
-    REFERENCES itsd_customer(id));
+    FOREIGN KEY(itsd_admin_id)
+    REFERENCES itsd_user(id)
+    );
 
   COMMIT;
 EOSQL
