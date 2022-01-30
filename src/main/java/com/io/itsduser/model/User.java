@@ -1,10 +1,14 @@
 package com.io.itsduser.model;
 
+import com.io.itsd.model.Request;
+
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name = "itsd_user")
-public class User {
+public class User implements Serializable {
 
     @Id
     @Column(name = "id")
@@ -22,17 +26,9 @@ public class User {
     @Column(name = "role")
     private String role;
 
-    @Column(name = "customer_id")
-    private String customerId;
-
-    public String getCustomerId() {
-        return customerId;
-    }
-
-    public User setCustomerId(String customerId) {
-        this.customerId = customerId;
-        return this;
-    }
+//    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+//    @JoinColumn(name = "user_id")
+//    private List<Request> requestList;
 
     public String getId() {
         return id;

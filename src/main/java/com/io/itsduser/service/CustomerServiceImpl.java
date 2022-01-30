@@ -2,6 +2,7 @@ package com.io.itsduser.service;
 
 import com.io.itsd.HibernateQueryBuilder;
 import com.io.itsduser.controller.model.CreateCustomerBody;
+import com.io.itsduser.controller.model.CreateUserBody;
 import com.io.itsduser.dao.CustomerDao;
 import com.io.itsduser.model.Customer;
 import com.io.itsduser.model.User;
@@ -9,6 +10,7 @@ import com.io.itsduser.model.types.UserRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
@@ -28,6 +30,7 @@ public class CustomerServiceImpl implements CustomerService{
         this.hibernateQueryBuilder = hibernateQueryBuilder;
     }
 
+    @Override
     public void createCustomer(CreateCustomerBody createCustomerBody) {
 
         User ownerUser = new User().setId(UUID.randomUUID().toString())
@@ -38,12 +41,23 @@ public class CustomerServiceImpl implements CustomerService{
 
         Customer newCustomer = new Customer().setId(UUID.randomUUID().toString())
                 .setName(createCustomerBody.getName())
-                .setEmail(createCustomerBody.getOwnerEmail())
-                .setUser(ownerUser);
+                .setEmail(createCustomerBody.getOwnerEmail());
 
-        ownerUser.setCustomerId(newCustomer.getId());
+        newCustomer.updateUserList(ownerUser);
 
         customerDao.insert(newCustomer);
+    }
+
+    @Override
+    public void updateCustomerWithNewUser(CreateUserBody createUserBody) {
+        User user = new User().setId(UUID.randomUUID().toString())
+                .setName(createUserBody.getName())
+                .setEmail(createUserBody.getEmail())
+                .setPassword(createUserBody.getPassword())
+                .setRole(createUserBody.getRole());
+        Customer customer = retrieveCustomerUsingName(createUserBody.getCustomerName());
+        customer.updateUserList(user);
+        customerDao.update(customer);
     }
 
     @Override

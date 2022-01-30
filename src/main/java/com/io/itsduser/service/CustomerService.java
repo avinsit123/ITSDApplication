@@ -1,6 +1,7 @@
 package com.io.itsduser.service;
 
 import com.io.itsduser.controller.model.CreateCustomerBody;
+import com.io.itsduser.controller.model.CreateUserBody;
 import com.io.itsduser.model.Customer;
 
 import java.util.HashMap;
@@ -9,6 +10,8 @@ import java.util.List;
 public interface CustomerService {
 
     void createCustomer(CreateCustomerBody createCustomerBody);
+
+    void updateCustomerWithNewUser(CreateUserBody createUserBody);
 
     List<Customer> getAllCustomers();
 

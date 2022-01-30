@@ -6,6 +6,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -25,20 +26,18 @@ public class UserDao implements Dao<User> {
     }
 
     @Override
-    public Optional<String> insert(User user) {
+    public void insert(User user) {
         Session session = sessionFactory.openSession();
         try {
-            session.beginTransaction();
+            Transaction transaction = session.beginTransaction();
             session.persist(user);
-            session.getTransaction().commit();
+            transaction.commit();
         } catch (RuntimeException e) {
             logger.error("User entry in DB failed with exception {}" , e.getMessage());
             e.printStackTrace();
-            return Optional.empty();
         } finally {
             session.close();
         }
-        return Optional.ofNullable(user.getId());
     }
 
     @Override
@@ -46,9 +45,9 @@ public class UserDao implements Dao<User> {
         Session session = sessionFactory.openSession();
         List<User> userList = new ArrayList<>();
         try {
-            session.beginTransaction();
+            Transaction transaction = session.beginTransaction();
             userList = session.createQuery(hqlQuery, User.class).getResultList();
-            session.getTransaction().commit();
+            transaction.commit();
         } catch (RuntimeException e) {
             logger.error("User Data retrieval from DB failed with reason {}", e.getMessage());
             e.printStackTrace();
@@ -59,18 +58,8 @@ public class UserDao implements Dao<User> {
     }
 
     @Override
-    public void deleteUsingId(String id) {
-        Session session = sessionFactory.openSession();
-        try {
-            session.beginTransaction();
-            User userToBeDeleted = session.get(User.class, id);
-            session.delete(userToBeDeleted);
-        } catch (RuntimeException e) {
-            logger.error("User Deletion from DB failed with reason {}", e.getMessage());
-            e.printStackTrace();
-        } finally {
-            session.close();
-        }
+    public void update(User user) {
+
     }
 
 }

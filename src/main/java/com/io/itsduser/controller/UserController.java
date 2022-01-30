@@ -41,7 +41,7 @@ public class UserController {
 
     @PostMapping(value = USER_BASE_URL + "/insert")
     public String insertUser(@ModelAttribute CreateUserBody createUserBody) {
-        userService.createUser(createUserBody);
+        customerService.updateCustomerWithNewUser(createUserBody);
         return "hello";
     }
 

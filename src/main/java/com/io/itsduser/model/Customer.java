@@ -1,10 +1,13 @@
 package com.io.itsduser.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "itsd_customer")
-public class Customer {
+public class Customer implements Serializable {
 
     @Id
     @Column(name = "id")
@@ -16,16 +19,12 @@ public class Customer {
     @Column(name = "email")
     private String email;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "itsd_admin_id")
-    private User adminUser;
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "customer_id")
+    private List<User> userList = new ArrayList<>();
 
-    public User getUser() {
-        return adminUser;
-    }
-
-    public Customer setUser(User adminUser) {
-        this.adminUser = adminUser;
+    public Customer updateUserList(User user) {
+        userList.add(user);
         return this;
     }
 

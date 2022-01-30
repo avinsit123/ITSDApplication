@@ -7,6 +7,7 @@ import com.io.itsduser.dao.UserDao;
 import com.io.itsduser.model.Customer;
 import com.io.itsduser.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
@@ -28,7 +29,7 @@ public class UserServiceImpl implements UserService{
         this.customerService = customerService;
     }
 
-    public void createUser(CreateUserBody createUserBody) {
+    public void createUser(@NonNull CreateUserBody createUserBody) {
 
         User user = new User().setId(UUID.randomUUID().toString())
                 .setName(createUserBody.getName())
@@ -36,8 +37,6 @@ public class UserServiceImpl implements UserService{
                 .setPassword(createUserBody.getPassword())
                 .setRole(createUserBody.getRole());
 
-        Customer customer = customerService.retrieveCustomerUsingName(createUserBody.getCustomerName());
-        user.setCustomerId(customer.getId());
         userDao.insert(user);
     }
 }
