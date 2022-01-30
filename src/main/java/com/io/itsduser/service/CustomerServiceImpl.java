@@ -72,6 +72,10 @@ public class CustomerServiceImpl implements CustomerService{
         return retrieveCustomersWithFilter("name", name).get(0);
     }
 
+    public Customer retrieveCustomerUsingId(String id) {
+        return retrieveCustomersWithFilter("id", id).get(0);
+    }
+
     private List<Customer> retrieveCustomersWithFilter(String attribute, String cutoffValue) {
         hibernateQueryBuilder.flush();
         hibernateQueryBuilder = hibernateQueryBuilder.setTableName(CUSTOMER_TABLE_NAME);

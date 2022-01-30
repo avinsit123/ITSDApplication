@@ -2,6 +2,7 @@ package com.io.itsduser.controller;
 
 import com.io.itsduser.controller.model.CreateUserBody;
 import com.io.itsduser.model.Customer;
+import com.io.itsduser.model.User;
 import com.io.itsduser.service.CustomerService;
 import com.io.itsduser.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
@@ -43,6 +45,13 @@ public class UserController {
     public String insertUser(@ModelAttribute CreateUserBody createUserBody) {
         customerService.updateCustomerWithNewUser(createUserBody);
         return "hello";
+    }
+
+    @GetMapping(value = USER_BASE_URL + "/detail/{id}")
+    public String getUserDetails(Model model,@PathVariable String id) {
+        User user = new User();
+        model.addAttribute("user", user);
+        return "UserDetail";
     }
 
 }

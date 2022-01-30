@@ -18,10 +18,10 @@
 
 <div class="container">
   <hr>
-  <h1> Create New Responder!!</h1>
+  <h1> Create New Responder </h1>
   <hr>
 
-  <form method="post"  th:action="@{/responder/insert}" th:object="${createUserBody}">
+  <form method="post"  th:action="@{/responder/insert}" th:object="${createResponderBody}">
     <div class="form-group">
       <label for="name">Name</label>
       <input type="name" class="form-control" id="name" required placeholder="Enter User Name" name="name" th:field="*{name}">
@@ -41,7 +41,6 @@
       <label for="password">Password</label>
       <input type="password" class="form-control" id="password" required placeholder="Enter Password" name="password" th:field="*{password}">
     </div>
-
 
     <button type="submit" class="btn btn-primary">Create Responder</button>
   </form>

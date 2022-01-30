@@ -17,4 +17,5 @@ public interface CustomerService {
 
     Customer retrieveCustomerUsingName(String name);
 
+    Customer retrieveCustomerUsingId(String id);
 }

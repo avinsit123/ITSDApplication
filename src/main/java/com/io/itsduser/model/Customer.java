@@ -10,10 +10,10 @@ import java.util.List;
 public class Customer implements Serializable {
 
     @Id
-    @Column(name = "id")
+    @Column(name = "id", unique = true, updatable = false)
     private String id;
 
-    @Column(name = "name")
+    @Column(name = "name", unique = true)
     private String name;
 
     @Column(name = "email")
@@ -21,7 +21,11 @@ public class Customer implements Serializable {
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "customer_id")
-    private List<User> userList = new ArrayList<>();
+    private final List<User> userList = new ArrayList<>();
+
+    public List<User> getUserList() {
+        return userList;
+    }
 
     public Customer updateUserList(User user) {
         userList.add(user);
