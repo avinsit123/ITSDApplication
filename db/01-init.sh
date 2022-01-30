@@ -38,5 +38,12 @@ psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-E
     FOREIGN KEY(customer_id)
     REFERENCES itsd_customer(id));
 
+    CREATE TABLE IF NOT EXISTS responder (
+        id CHAR(100) UNIQUE NOT NULL,
+        name CHAR(100),
+        email CHAR(100),
+        password CHAR(100)
+        PRIMARY KEY(id))
+
   COMMIT;
 EOSQL

@@ -3,12 +3,13 @@ package com.io.itsduser.model;
 import com.io.itsd.model.Request;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 
 @Entity
 @Table(name = "responder")
-public class Responder {
+public class Responder implements Serializable {
 
     @Id
     @Column(name = "id")
@@ -29,6 +30,39 @@ public class Responder {
 //    private List<Request> requestList;
 
 
+    public String getId() {
+        return id;
+    }
 
+    public Responder setId(String id) {
+        this.id = id;
+        return this;
+    }
 
+    public String getName() {
+        return name;
+    }
+
+    public Responder setName(String name) {
+        this.name = name;
+        return this;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public Responder setEmail(String email) {
+        this.email = email;
+        return this;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public Responder setPassword(String password) {
+        this.password = password;
+        return this;
+    }
 }

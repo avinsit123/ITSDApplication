@@ -2,6 +2,7 @@ package com.io.itsd.config;
 
 import com.io.itsd.model.Request;
 import com.io.itsduser.model.Customer;
+import com.io.itsduser.model.Responder;
 import com.io.itsduser.model.User;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -46,6 +47,7 @@ public class HibernateConfig {
                 .addAnnotatedClass(Request.class)
                 .addAnnotatedClass(Customer.class)
                 .addAnnotatedClass(User.class)
+                .addAnnotatedClass(Responder.class)
                 .buildSessionFactory();
     }
 
