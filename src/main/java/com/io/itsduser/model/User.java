@@ -1,9 +1,10 @@
 package com.io.itsduser.model;
 
-import com.io.itsd.model.Request;
+import com.io.request.model.Request;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -26,9 +27,9 @@ public class User implements Serializable {
     @Column(name = "role")
     private String role;
 
-//    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-//    @JoinColumn(name = "user_id")
-//    private List<Request> requestList;
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
+    private List<Request> requestList = new ArrayList<>();
 
     public String getId() {
         return id;
@@ -72,6 +73,15 @@ public class User implements Serializable {
 
     public User setRole(String role) {
         this.role = role;
+        return this;
+    }
+
+    public List<Request> getRequestList() {
+        return requestList;
+    }
+
+    public User addRequest(Request request) {
+        this.requestList.add(request);
         return this;
     }
 }

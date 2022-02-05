@@ -1,6 +1,6 @@
 package com.io.itsd.config;
 
-import com.io.itsd.model.Request;
+import com.io.request.model.Request;
 import com.io.itsduser.model.Customer;
 import com.io.itsduser.model.Responder;
 import com.io.itsduser.model.User;

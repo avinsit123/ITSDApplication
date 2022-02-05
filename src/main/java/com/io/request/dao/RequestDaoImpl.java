@@ -1,12 +1,11 @@
-package com.io.itsd.dao;
+package com.io.request.dao;
 
-import com.io.itsd.model.Request;
+import com.io.request.model.Request;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.HashMap;
 import java.util.List;
 
 @Component

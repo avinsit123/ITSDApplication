@@ -1,8 +1,8 @@
-package com.io.itsd.controller;
+package com.io.request.controller;
 
-import com.io.itsd.controller.data.CreateRequestBody;
-import com.io.itsd.model.Request;
-import com.io.itsd.services.RequestService;
+import com.io.request.controller.data.CreateRequestBody;
+import com.io.request.model.Request;
+import com.io.request.services.RequestService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;

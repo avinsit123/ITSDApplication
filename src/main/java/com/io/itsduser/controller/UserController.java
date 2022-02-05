@@ -5,6 +5,8 @@ import com.io.itsduser.model.Customer;
 import com.io.itsduser.model.User;
 import com.io.itsduser.service.CustomerService;
 import com.io.itsduser.service.UserService;
+import com.io.request.controller.data.CreateRequestBody;
+import com.io.request.model.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -52,6 +54,12 @@ public class UserController {
         User user = new User();
         model.addAttribute("user", user);
         return "UserDetail";
+    }
+
+    @PostMapping(value = USER_BASE_URL + "/addRequest")
+    public String addRequestForUser(@ModelAttribute CreateRequestBody createRequestBody) {
+        userService.createRequestForUser(createRequestBody);
+        return "hello";
     }
 
 }

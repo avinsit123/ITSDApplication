@@ -1,7 +1,7 @@
-package com.io.itsd.services;
+package com.io.request.services;
 
-import com.io.itsd.controller.data.CreateRequestBody;
-import com.io.itsd.model.Request;
+import com.io.request.controller.data.CreateRequestBody;
+import com.io.request.model.Request;
 
 import java.util.List;
 

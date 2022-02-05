@@ -1,6 +1,6 @@
-package com.io.itsd.dao;
+package com.io.request.dao;
 
-import com.io.itsd.model.Request;
+import com.io.request.model.Request;
 
 import java.util.List;
 

@@ -1,10 +1,10 @@
-package com.io.itsd.services;
+package com.io.request.services;
 
 import com.io.itsd.HibernateQueryBuilder;
-import com.io.itsd.controller.data.CreateRequestBody;
-import com.io.itsd.dao.RequestDao;
-import com.io.itsd.model.Request;
-import com.io.itsd.model.types.RequestStatus;
+import com.io.request.controller.data.CreateRequestBody;
+import com.io.request.dao.RequestDao;
+import com.io.request.model.Request;
+import com.io.request.model.types.RequestStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -34,7 +34,6 @@ public class RequestServiceImpl implements RequestService {
                 .setStatus(RequestStatus.OPEN.toString())
                 .setCreationTime(OffsetDateTime.now().toString())
                 .setUpdationTime(OffsetDateTime.now().toString())
-                .setCustomer(createRequestBody.getCustomer())
                 .setDescription(createRequestBody.getDescription())
                 .setTitle(createRequestBody.getTitle());
 

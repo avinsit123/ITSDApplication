@@ -1,4 +1,4 @@
-package com.io.itsd.model.types;
+package com.io.request.model.types;
 
 public enum RequestStatus {
     OPEN,

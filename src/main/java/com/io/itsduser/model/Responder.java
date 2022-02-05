@@ -1,10 +1,7 @@
 package com.io.itsduser.model;
 
-import com.io.itsd.model.Request;
-
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.List;
 
 
 @Entity

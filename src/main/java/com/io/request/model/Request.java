@@ -1,4 +1,4 @@
-package com.io.itsd.model;
+package com.io.request.model;
 
 import javax.persistence.*;
 

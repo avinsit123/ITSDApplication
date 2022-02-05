@@ -1,7 +1,7 @@
-package com.io.itsd.controller;
+package com.io.request.controller;
 
-import com.io.itsd.dao.RequestDao;
-import com.io.itsd.model.Request;
+import com.io.request.dao.RequestDao;
+import com.io.request.model.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
