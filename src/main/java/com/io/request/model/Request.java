@@ -28,8 +28,6 @@ public class Request {
     @Column(name = "updated_at")
     private String updationTime;
 
-    @Column(name = "customer")
-    private String Customer;
 
     public Request setAssigneeName(String assigneeName) {
         this.assigneeName = assigneeName;
@@ -61,10 +59,7 @@ public class Request {
         return this;
     }
 
-    public Request setCustomer(String customer) {
-        Customer = customer;
-        return this;
-    }
+
 
     public Request setId(String id) {
         this.id = id;
@@ -99,7 +94,4 @@ public class Request {
         return updationTime;
     }
 
-    public String getCustomer() {
-        return Customer;
-    }
 }

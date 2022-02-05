@@ -2,10 +2,7 @@ package com.io.itsduser.service;
 
 import com.io.itsd.HibernateQueryBuilder;
 import com.io.itsduser.controller.model.CreateUserBody;
-import com.io.itsduser.dao.CustomerDao;
 import com.io.itsduser.dao.UserDao;
-import com.io.itsduser.model.Customer;
-import com.io.itsduser.model.Responder;
 import com.io.itsduser.model.User;
 import com.io.request.controller.data.CreateRequestBody;
 import com.io.request.model.Request;
@@ -15,6 +12,7 @@ import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
 import java.time.OffsetDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @Component
@@ -24,7 +22,7 @@ public class UserServiceImpl implements UserService{
     private CustomerService customerService;
     private HibernateQueryBuilder hibernateQueryBuilder;
 
-    private static final String USER_TABLE_NAME = "itsd_user";
+    private static final String USER_TABLE_NAME = "User";
 
     @Autowired
     public UserServiceImpl(UserDao userDao, HibernateQueryBuilder hibernateQueryBuilder,
@@ -64,5 +62,16 @@ public class UserServiceImpl implements UserService{
 
         user.addRequest(newRequest);
         userDao.update(user);
+    }
+
+    public List<Request> getAllRequestsForUser(String userId) {
+        return getUser(userId).getRequestList();
+    }
+
+    public User getUser(String userId) {
+        hibernateQueryBuilder.flush();
+        hibernateQueryBuilder.setTableName(USER_TABLE_NAME)
+                .addEqualityFilter("id",  userId);
+        return userDao.get(hibernateQueryBuilder.returnHqlQuery()).get(0);
     }
 }

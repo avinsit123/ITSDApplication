@@ -23,7 +23,6 @@ public class UserController {
 
     private final CustomerService customerService;
     private final UserService userService;
-
     private static final String USER_BASE_URL = "/user";
 
     @Autowired
@@ -50,10 +49,24 @@ public class UserController {
     }
 
     @GetMapping(value = USER_BASE_URL + "/detail/{id}")
-    public String getUserDetails(Model model,@PathVariable String id) {
+    public String getUserDetails(Model model, @PathVariable String id) {
         User user = new User();
         model.addAttribute("user", user);
         return "UserDetail";
+    }
+
+    @GetMapping(value = USER_BASE_URL + "/{id}/requests")
+    public String getAllRequestsForUser(Model model, @PathVariable String id) {
+        List<Request> requestList = userService.getAllRequestsForUser(id);
+        model.addAttribute("requestList", requestList);
+        return "ViewAllRequests";
+    }
+
+    @GetMapping(value = USER_BASE_URL + "/{id}/update")
+    public String populateFormToUpdateUser(Model model, @PathVariable String id) {
+        User user = userService.getUser(id);
+        model.addAttribute("User", user);
+        return "af";
     }
 
     @PostMapping(value = USER_BASE_URL + "/addRequest")

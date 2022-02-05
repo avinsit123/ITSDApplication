@@ -26,7 +26,7 @@ public class RequestController {
         this.requestService = requestService;
     }
 
-    @GetMapping(REQUEST_BASE_URL + "/createRequestView")
+    @GetMapping(REQUEST_BASE_URL + "/create")
     public String createRequest(Model model) {
         model.addAttribute("createRequestBody", new CreateRequestBody());
         return "CreateRequest";
@@ -38,14 +38,14 @@ public class RequestController {
         return new RedirectView("viewAllRequests");
     }
 
-    @GetMapping(REQUEST_BASE_URL + "/viewAllRequests")
+    @GetMapping(REQUEST_BASE_URL + "/viewAll")
     public String viewAllRequests(Model model) {
         List<Request> requestList = requestService.getAllRequests();
         model.addAttribute("requestList", requestList);
         return "ViewAllRequests";
     }
 
-    @GetMapping(REQUEST_BASE_URL + "/viewRequest/{id}")
+    @GetMapping(REQUEST_BASE_URL + "/view/{id}")
     public String viewRequest(Model model, @PathVariable String id) {
         Request request = requestService.getRequestById(id);
         model.addAttribute("request", request);

@@ -44,10 +44,10 @@ public class HibernateConfig {
 
         // todo: Add All Entity Classes to annotated class.
         return cfg.setProperties(properties)
-                .addAnnotatedClass(Request.class)
                 .addAnnotatedClass(Customer.class)
                 .addAnnotatedClass(User.class)
                 .addAnnotatedClass(Responder.class)
+                .addAnnotatedClass(Request.class)
                 .buildSessionFactory();
     }
 
