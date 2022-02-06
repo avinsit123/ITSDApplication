@@ -73,4 +73,9 @@ public class CustomerDao implements Dao<Customer> {
         }
     }
 
+    @Override
+    public void delete(String id) {
+
+    }
+
 }

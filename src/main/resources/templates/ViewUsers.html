@@ -155,9 +155,9 @@ hr {
             <p class="caption" th:text="${user.email}"></p>
         </div>
     </div>
-    <a th:href = "@{'/user/' + ${user.id}+ '/requests'}" class="btn btn-outline-success mr-2" role="button">Requests</a>
-    <a th:href = "@{'/user/' + ${user.id}+ '/update'}" class="btn btn-outline-warning mr-2" role="button">Update</a>
-    <a th:href = "@{'/user/' + ${user.id}+ '/delete'}" class="btn btn-outline-danger mr-2" role="button">Delete</a>
+    <a th:method="get" th:href = "@{'/user/' + ${user.id}+ '/requests'}" class="btn btn-outline-success mr-2" role="button">Requests</a>
+    <a th:method="get" th:href = "@{'/user/' + ${user.id}+ '/update'}" class="btn btn-outline-warning mr-2" role="button">Update</a>
+    <a th:method="delete" th:href = "@{'/user/' + ${user.id}+ '/delete'}" class="btn btn-outline-danger mr-2" role="button">Delete</a>
 
 <!--    <span class="badge badge-primary badge-pill" width=5px th:text="${#lists.size(user.requestList)}"></span>-->
 </div>

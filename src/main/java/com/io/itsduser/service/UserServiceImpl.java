@@ -2,6 +2,7 @@ package com.io.itsduser.service;
 
 import com.io.itsd.HibernateQueryBuilder;
 import com.io.itsduser.controller.model.CreateUserBody;
+import com.io.itsduser.controller.model.UpdateUserBody;
 import com.io.itsduser.dao.UserDao;
 import com.io.itsduser.model.User;
 import com.io.request.controller.data.CreateRequestBody;
@@ -68,10 +69,21 @@ public class UserServiceImpl implements UserService{
         return getUser(userId).getRequestList();
     }
 
+    public void updateUser(UpdateUserBody updateUserBody) {
+        User user = this.getUser(updateUserBody.getId());
+        user.setName(updateUserBody.getName())
+                .setEmail(updateUserBody.getEmail());
+        userDao.update(user);
+    }
+
     public User getUser(String userId) {
         hibernateQueryBuilder.flush();
         hibernateQueryBuilder.setTableName(USER_TABLE_NAME)
                 .addEqualityFilter("id",  userId);
         return userDao.get(hibernateQueryBuilder.returnHqlQuery()).get(0);
+    }
+
+    public void deleteUser(String userId) {
+        userDao.delete(userId);
     }
 }

@@ -1,6 +1,7 @@
 package com.io.itsduser.controller;
 
 import com.io.itsduser.controller.model.CreateUserBody;
+import com.io.itsduser.controller.model.UpdateUserBody;
 import com.io.itsduser.model.Customer;
 import com.io.itsduser.model.User;
 import com.io.itsduser.service.CustomerService;
@@ -10,10 +11,7 @@ import com.io.request.model.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -65,8 +63,23 @@ public class UserController {
     @GetMapping(value = USER_BASE_URL + "/{id}/update")
     public String populateFormToUpdateUser(Model model, @PathVariable String id) {
         User user = userService.getUser(id);
-        model.addAttribute("User", user);
-        return "af";
+        UpdateUserBody updateUserBody = new UpdateUserBody().setId(user.getId())
+                .setName(user.getName())
+                .setEmail(user.getEmail());
+        model.addAttribute("updateUserBody", updateUserBody);
+        return "UpdateUser";
+    }
+
+    @PostMapping(value = USER_BASE_URL + "/update")
+    public String updateUser(@ModelAttribute UpdateUserBody updateUserBody) {
+        userService.updateUser(updateUserBody);
+        return "hello";
+    }
+
+    @GetMapping(value = USER_BASE_URL + "/{id}/delete")
+    public String deleteUser(@PathVariable String id) {
+        userService.deleteUser(id);
+        return "hello";
     }
 
     @PostMapping(value = USER_BASE_URL + "/addRequest")

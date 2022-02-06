@@ -49,4 +49,9 @@ public class ResponderDao implements Dao<Responder> {
     public void update(Responder responder) {
 
     }
+
+    @Override
+    public void delete(String id) {
+
+    }
 }

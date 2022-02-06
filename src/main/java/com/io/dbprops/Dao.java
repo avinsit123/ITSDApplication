@@ -11,4 +11,6 @@ public interface Dao<T extends Serializable> {
 
     void update(T t);
 
+    void delete(String id);
+
 }
