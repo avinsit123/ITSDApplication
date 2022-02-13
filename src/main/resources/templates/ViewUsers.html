@@ -159,11 +159,13 @@ hr {
     <a th:method="get" th:href = "@{'/user/' + ${user.id}+ '/update'}" class="btn btn-outline-warning mr-2" role="button">Update</a>
     <a th:method="delete" th:href = "@{'/user/' + ${user.id}+ '/delete'}" class="btn btn-outline-danger mr-2" role="button">Delete</a>
 
-<!--    <span class="badge badge-primary badge-pill" width=5px th:text="${#lists.size(user.requestList)}"></span>-->
+    <span class="badge badge-primary badge-pill" width=5px th:text="${#lists.size(user.requestList)}"></span>
 </div>
 
-
 <hr>
+
+<a th:href="@{'/user/' + ${customer.id} + '/create'}" class="btn btn-success" role="button">Create User</a>
+<a href="/customer" class="btn btn-info" role="button">Customer List</a>
 
 <script src="https://static.codepen.io/assets/common/stopExecutionOnTimeout-de7e2ef6bfefd24b79a3f68b414b87b8db5b08439cac3f1012092b2290c719cd.js"></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script>

@@ -8,7 +8,7 @@ public class CreateUserBody {
 
     private String email;
 
-    private String customerName;
+    private String customerId;
 
     private String password;
 
@@ -50,12 +50,12 @@ public class CreateUserBody {
         return this;
     }
 
-    public String getCustomerName() {
-        return customerName;
+    public String getCustomerId() {
+        return customerId;
     }
 
-    public CreateUserBody setCustomerName(String customerName) {
-        this.customerName = customerName;
+    public CreateUserBody setCustomerId(String customerId) {
+        this.customerId = customerId;
         return this;
     }
 

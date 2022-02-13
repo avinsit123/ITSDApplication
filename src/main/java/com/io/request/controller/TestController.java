@@ -1,12 +1,9 @@
 package com.io.request.controller;
 
 import com.io.request.dao.RequestDao;
-import com.io.request.model.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-
-import java.util.List;
 
 @Controller
 public class TestController {
@@ -16,8 +13,6 @@ public class TestController {
 
     @GetMapping("/asd")
     private String asd() {
-        List<Request> requestList = requestDao.retrieveRequests("From Request");
-        System.out.println(requestList.get(0).toString());
-        return "hello";
+        return "fragments/SidebarNav";
     }
 }

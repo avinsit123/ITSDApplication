@@ -40,10 +40,17 @@ public class UserController {
         return "CreateUser";
     }
 
+    @GetMapping(value = USER_BASE_URL + "/{customerId}/create")
+    public String createUserWithCustomerId(Model model, @PathVariable String customerId) {
+        model.addAttribute("createUserBody", new CreateUserBody().setCustomerId(customerId));
+        return "CreateUser";
+    }
+
+
     @PostMapping(value = USER_BASE_URL + "/insert")
     public String insertUser(@ModelAttribute CreateUserBody createUserBody) {
         customerService.updateCustomerWithNewUser(createUserBody);
-        return "hello";
+        return "redirect:customer/" + createUserBody.getCustomerId() + "/user";
     }
 
     @GetMapping(value = USER_BASE_URL + "/detail/{id}")

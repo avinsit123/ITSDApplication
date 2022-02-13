@@ -2,6 +2,7 @@ package com.io.itsduser.service;
 
 import com.io.itsduser.controller.model.CreateUserBody;
 import com.io.itsduser.controller.model.UpdateUserBody;
+import com.io.itsduser.model.Customer;
 import com.io.itsduser.model.User;
 import com.io.request.controller.data.CreateRequestBody;
 import com.io.request.model.Request;
@@ -21,4 +22,6 @@ public interface UserService {
     void updateUser(UpdateUserBody updateUserBody);
 
     void deleteUser(String userId);
+
+    Customer getCustomerForUser(String userId);
 }

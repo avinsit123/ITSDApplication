@@ -1,6 +1,7 @@
 package com.io.itsduser.dao;
 
 import com.io.dbprops.Dao;
+import com.io.itsduser.model.Customer;
 import com.io.itsduser.model.Responder;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -10,6 +11,7 @@ import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Component(value = "responder")
@@ -41,8 +43,20 @@ public class ResponderDao implements Dao<Responder> {
 
     @Override
     public List<Responder> get(String hqlQuery) {
-
-        return null;
+        Session session = sessionFactory.openSession();
+        List<Responder> responderList = new ArrayList<>();
+        try {
+            Transaction transaction = session.beginTransaction();
+            responderList = session.createQuery(hqlQuery, Responder.class).getResultList();
+            transaction.commit();
+            logger.info("Retrieved {} responders from DB", responderList.size());
+        } catch (RuntimeException e) {
+            logger.error("Responder Retrieval from DB failed due to reason {}", e.getMessage());
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return responderList;
     }
 
     @Override

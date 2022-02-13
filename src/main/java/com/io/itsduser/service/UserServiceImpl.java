@@ -4,6 +4,7 @@ import com.io.itsd.HibernateQueryBuilder;
 import com.io.itsduser.controller.model.CreateUserBody;
 import com.io.itsduser.controller.model.UpdateUserBody;
 import com.io.itsduser.dao.UserDao;
+import com.io.itsduser.model.Customer;
 import com.io.itsduser.model.User;
 import com.io.request.controller.data.CreateRequestBody;
 import com.io.request.model.Request;
@@ -85,5 +86,17 @@ public class UserServiceImpl implements UserService{
 
     public void deleteUser(String userId) {
         userDao.delete(userId);
+    }
+
+    @Override
+    public Customer getCustomerForUser(String userId) {
+        List<Customer> customerList = customerService.getAllCustomers();
+        for(Customer customer: customerList) {
+            for(User user: customer.getUserList()) {
+                if(user.getId().equals(userId))
+                    return customer;
+            }
+        }
+        return null;
     }
 }

@@ -3,6 +3,7 @@ package com.io.itsduser.service;
 import com.io.itsd.HibernateQueryBuilder;
 import com.io.itsduser.controller.model.CreateCustomerBody;
 import com.io.itsduser.controller.model.CreateUserBody;
+import com.io.itsduser.controller.model.UpdateCustomerBody;
 import com.io.itsduser.dao.CustomerDao;
 import com.io.itsduser.model.Customer;
 import com.io.itsduser.model.User;
@@ -55,7 +56,7 @@ public class CustomerServiceImpl implements CustomerService{
                 .setEmail(createUserBody.getEmail())
                 .setPassword(createUserBody.getPassword())
                 .setRole(createUserBody.getRole());
-        Customer customer = retrieveCustomerUsingName(createUserBody.getCustomerName());
+        Customer customer = retrieveCustomerUsingId(createUserBody.getCustomerId());
         customer.updateUserList(user);
         customerDao.update(customer);
     }
@@ -74,6 +75,25 @@ public class CustomerServiceImpl implements CustomerService{
 
     public Customer retrieveCustomerUsingId(String id) {
         return retrieveCustomersWithFilter("id", id).get(0);
+    }
+
+    public void updateCustomer(UpdateCustomerBody updateCustomerBody) {
+        hibernateQueryBuilder.flush();
+        Customer customer = this.get(updateCustomerBody.getId());
+        customer.setName(updateCustomerBody.getName())
+                .setEmail(updateCustomerBody.getOwnerEmail());
+        customerDao.update(customer);
+    }
+
+    public Customer get(String id) {
+        hibernateQueryBuilder.flush();
+        hibernateQueryBuilder.setTableName(CUSTOMER_TABLE_NAME)
+                .addEqualityFilter("id",id);
+        return customerDao.get(hibernateQueryBuilder.returnHqlQuery()).get(0);
+    }
+
+    public void deleteCustomer(String id) {
+        customerDao.delete(id);
     }
 
     private List<Customer> retrieveCustomersWithFilter(String attribute, String cutoffValue) {

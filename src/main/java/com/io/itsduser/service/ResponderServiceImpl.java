@@ -7,6 +7,7 @@ import com.io.itsduser.model.Responder;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -14,6 +15,7 @@ public class ResponderServiceImpl implements ResponderService{
 
     private ResponderDao responderDao;
     private HibernateQueryBuilder hibernateQueryBuilder;
+    private static final String REQUEST_TABLE_NAME = "Responder";
 
     public ResponderServiceImpl(ResponderDao responderDao, HibernateQueryBuilder hibernateQueryBuilder) {
         this.responderDao = responderDao;
@@ -26,5 +28,12 @@ public class ResponderServiceImpl implements ResponderService{
                 .setName(createUserBody.getName())
                 .setPassword(createUserBody.getPassword());
         responderDao.insert(responder);
+    }
+
+    public List<Responder> getAllResponders() {
+        hibernateQueryBuilder.flush();
+        final String retrieveAllRespondersHqlQuery = hibernateQueryBuilder.setTableName(REQUEST_TABLE_NAME)
+                .returnHqlQuery();
+        return responderDao.get(retrieveAllRespondersHqlQuery);
     }
 }

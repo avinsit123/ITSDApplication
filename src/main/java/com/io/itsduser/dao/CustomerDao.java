@@ -2,6 +2,7 @@ package com.io.itsduser.dao;
 
 import com.io.dbprops.Dao;
 import com.io.itsduser.model.Customer;
+import com.io.itsduser.model.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.Session;
@@ -75,7 +76,18 @@ public class CustomerDao implements Dao<Customer> {
 
     @Override
     public void delete(String id) {
-
+        Session session = sessionFactory.openSession();
+        try {
+            Transaction transaction = session.beginTransaction();
+            Customer customer = session.get(Customer.class, id);
+            session.delete(customer);
+            transaction.commit();
+        } catch (RuntimeException e) {
+            logger.error("Customer Deletion from DB failed with reason {}", e.getMessage());
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
     }
 
 }

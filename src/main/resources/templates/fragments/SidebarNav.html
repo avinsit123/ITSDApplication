@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sidebar Nav</title>
+    <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!------ Include the above in your HEAD tag ---------->
+
+    <link th:href="@{/styles/sidebarnav.css}" rel="stylesheet" />
+</head>
+<body>
+
+
+<nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <a class="navbar-brand" href="/home">JiraServiceManagement <i class="fab fa-atlassian"></i> </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/customer/createRequest">Create Request</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/responder/viewAllRequests">Pending Requests</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/admin">Admin</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="/info">Info<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/search">Search</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Personal
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="/responder/viewYourRequests">Pending Requests</a>
+                    <a class="dropdown-item" href="/customer/viewRequests">Created Requests</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="/gday">G' Day 👋🏼</a>
+                </div>
+            </li>
+        </ul>
+        <a href="/logout">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Logout</button>
+        </a>
+    </div>
+</nav>
+
+<br>
+</body>
+</html>
