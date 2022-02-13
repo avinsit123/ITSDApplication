@@ -1,5 +1,6 @@
 package com.io.request.controller;
 
+import com.io.itsduser.service.UserService;
 import com.io.request.controller.data.CreateRequestBody;
 import com.io.request.model.Request;
 import com.io.request.services.RequestService;
@@ -17,25 +18,15 @@ import java.util.List;
 public class RequestController {
 
     private RequestService requestService;
+    private UserService userService;
 
     private static final String REQUEST_BASE_URL = "/request";
     private static final Logger logger = LogManager.getLogger(RequestController.class);
 
     @Autowired
-    public RequestController(RequestService requestService) {
+    public RequestController(RequestService requestService, UserService userService) {
         this.requestService = requestService;
-    }
-
-    @GetMapping(REQUEST_BASE_URL + "/create")
-    public String createRequest(Model model) {
-        model.addAttribute("createRequestBody", new CreateRequestBody());
-        return "CreateRequest";
-    }
-
-    @PostMapping(REQUEST_BASE_URL + "/insertRequest")
-    public RedirectView insertRequest(@ModelAttribute CreateRequestBody createRequestBody) {
-        requestService.createRequest(createRequestBody);
-        return new RedirectView("viewAllRequests");
+        this.userService = userService;
     }
 
     @GetMapping(REQUEST_BASE_URL + "/viewAll")
@@ -51,4 +42,28 @@ public class RequestController {
         model.addAttribute("request", request);
         return "ViewRequest";
     }
+
+    @GetMapping(REQUEST_BASE_URL + "/view/user/{userId}")
+    public String getAllRequestsForUser(Model model, @PathVariable String userId) {
+        List<Request> requestList = userService.getAllRequestsForUser(userId);
+        model.addAttribute("requestList", requestList);
+        model.addAttribute("userId", userId);
+        return "ViewAllRequests";
+    }
+
+    @GetMapping(REQUEST_BASE_URL + "/{userId}/create")
+    public String displayCreateRequestForm(Model model, @PathVariable String userId) {
+        CreateRequestBody createRequestBody = new CreateRequestBody().setUserId(userId);
+        model.addAttribute("createRequestBody", createRequestBody);
+        return "CreateRequest";
+    }
+
+    @PostMapping(REQUEST_BASE_URL + "/create")
+    public RedirectView addNewRequestForUser(@ModelAttribute CreateRequestBody createRequestBody) {
+        userService.createRequestForUser(createRequestBody);
+        String userId = createRequestBody.getUserId();
+        return new RedirectView("/request/view/user/" + userId);
+    }
+
+
 }

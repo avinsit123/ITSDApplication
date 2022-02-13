@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -60,13 +61,6 @@ public class UserController {
         return "UserDetail";
     }
 
-    @GetMapping(value = USER_BASE_URL + "/{id}/requests")
-    public String getAllRequestsForUser(Model model, @PathVariable String id) {
-        List<Request> requestList = userService.getAllRequestsForUser(id);
-        model.addAttribute("requestList", requestList);
-        return "ViewAllRequests";
-    }
-
     @GetMapping(value = USER_BASE_URL + "/{id}/update")
     public String populateFormToUpdateUser(Model model, @PathVariable String id) {
         User user = userService.getUser(id);
@@ -78,21 +72,18 @@ public class UserController {
     }
 
     @PostMapping(value = USER_BASE_URL + "/update")
-    public String updateUser(@ModelAttribute UpdateUserBody updateUserBody) {
+    public RedirectView updateUser(@ModelAttribute UpdateUserBody updateUserBody) {
+        String customerId = userService.getCustomerForUser(updateUserBody.getId()).getId();
         userService.updateUser(updateUserBody);
-        return "hello";
+        return new RedirectView("/customer/" + customerId +" /user");
     }
 
     @GetMapping(value = USER_BASE_URL + "/{id}/delete")
-    public String deleteUser(@PathVariable String id) {
+    public RedirectView deleteUser(@PathVariable String id) {
+        String customerId = userService.getCustomerForUser(id).getId();
         userService.deleteUser(id);
-        return "hello";
+        return new RedirectView("/customer/" + customerId +"/user");
     }
 
-    @PostMapping(value = USER_BASE_URL + "/addRequest")
-    public String addRequestForUser(@ModelAttribute CreateRequestBody createRequestBody) {
-        userService.createRequestForUser(createRequestBody);
-        return "hello";
-    }
 
 }
