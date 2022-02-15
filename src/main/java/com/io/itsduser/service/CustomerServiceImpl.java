@@ -16,13 +16,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
+import static com.io.TableKt.CUSTOMER_TABLE_NAME;
+
 @Component
 public class CustomerServiceImpl implements CustomerService{
 
     private final CustomerDao customerDao;
     private HibernateQueryBuilder hibernateQueryBuilder;
-
-    private static final String CUSTOMER_TABLE_NAME = "Customer";
 
     @Autowired
     public CustomerServiceImpl(CustomerDao customerDao,

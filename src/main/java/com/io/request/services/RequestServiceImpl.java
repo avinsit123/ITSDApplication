@@ -12,13 +12,13 @@ import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.UUID;
 
+import static com.io.TableKt.REQUEST_TABLE_NAME;
+
 @Component
 public class RequestServiceImpl implements RequestService {
 
-    private RequestDao requestDao;
-    private HibernateQueryBuilder hibernateQueryBuilder;
-
-    private static final String REQUEST_TABLE_NAME = "Request";
+    private final RequestDao requestDao;
+    private final HibernateQueryBuilder hibernateQueryBuilder;
 
     @Autowired
     public RequestServiceImpl(RequestDao requestDao, HibernateQueryBuilder hibernateQueryBuilder) {

@@ -40,6 +40,16 @@ psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-E
         FOREIGN KEY(user_id)
         REFERENCES itsd_user(id));
 
+        CREATE TABLE IF NOT EXISTS comment (
+        id CHAR(100) UNIQUE NOT NULL,
+        description CHAR(100),
+        created_at CHAR(100),
+        user_id CHAR(100),
+        request_id CHAR(100),
+        CONSTRAINT request_comment_constraint
+        FOREIGN KEY(request_id)
+        REFERENCES request(id));
+
         CREATE TABLE IF NOT EXISTS responder (
             id CHAR(100) UNIQUE NOT NULL,
             name CHAR(100),

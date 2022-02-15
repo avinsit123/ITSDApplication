@@ -17,8 +17,8 @@ import java.util.List;
 @Controller
 public class RequestController {
 
-    private RequestService requestService;
-    private UserService userService;
+    private final RequestService requestService;
+    private final UserService userService;
 
     private static final String REQUEST_BASE_URL = "/request";
     private static final Logger logger = LogManager.getLogger(RequestController.class);
@@ -53,8 +53,8 @@ public class RequestController {
 
     @GetMapping(REQUEST_BASE_URL + "/{userId}/create")
     public String displayCreateRequestForm(Model model, @PathVariable String userId) {
-        CreateRequestBody createRequestBody = new CreateRequestBody().setUserId(userId);
-        model.addAttribute("createRequestBody", createRequestBody);
+        model.addAttribute("createRequestBody", new CreateRequestBody()
+                .setUserId(userId));
         return "CreateRequest";
     }
 
@@ -64,6 +64,5 @@ public class RequestController {
         String userId = createRequestBody.getUserId();
         return new RedirectView("/request/view/user/" + userId);
     }
-
 
 }

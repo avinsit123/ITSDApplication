@@ -10,12 +10,13 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.UUID;
 
+import static com.io.TableKt.RESPONDER_TABLE_NAME;
+
 @Service
 public class ResponderServiceImpl implements ResponderService{
 
-    private ResponderDao responderDao;
-    private HibernateQueryBuilder hibernateQueryBuilder;
-    private static final String REQUEST_TABLE_NAME = "Responder";
+    private final ResponderDao responderDao;
+    private final HibernateQueryBuilder hibernateQueryBuilder;
 
     public ResponderServiceImpl(ResponderDao responderDao, HibernateQueryBuilder hibernateQueryBuilder) {
         this.responderDao = responderDao;
@@ -32,7 +33,7 @@ public class ResponderServiceImpl implements ResponderService{
 
     public List<Responder> getAllResponders() {
         hibernateQueryBuilder.flush();
-        final String retrieveAllRespondersHqlQuery = hibernateQueryBuilder.setTableName(REQUEST_TABLE_NAME)
+        final String retrieveAllRespondersHqlQuery = hibernateQueryBuilder.setTableName(RESPONDER_TABLE_NAME)
                 .returnHqlQuery();
         return responderDao.get(retrieveAllRespondersHqlQuery);
     }

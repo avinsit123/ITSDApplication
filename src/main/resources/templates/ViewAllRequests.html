@@ -31,15 +31,15 @@
             <td th:text="${request.updationTime}"></td>
             <td th:text="${request.assigneeName}"></td>
             <td>
-                <th:block th:switch="${request.status}">
+                <th:block th:switch="${#strings.trim(request.status)}">
                     <div th:case="OPEN">
-                        <button type="button" class="btn btn-secondary" th:value="Open">Open</button>
+                        <button type="button" class="btn btn-secondary" th:value="OPEN">Open</button>
                     </div>
                     <div th:case="IN_PROGRESS">
-                        <button type="button" class="btn btn-primary" th:value="In Progress">In Progress</button>
+                        <button type="button" class="btn btn-primary" th:value="IN_PROGRESS">In Progress</button>
                     </div>
                     <div th:case="CLOSED">
-                        <button type="button" class="btn btn-success" th:value="Closed">Closed</button>
+                        <button type="button" class="btn btn-success" th:value="CLOSED">Closed</button>
                     </div>
                 </th:block>
             </td>

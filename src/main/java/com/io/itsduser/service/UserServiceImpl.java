@@ -18,14 +18,14 @@ import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.UUID;
 
+import static com.io.TableKt.USER_TABLE_NAME;
+
 @Component
 public class UserServiceImpl implements UserService{
 
-    private UserDao userDao;
-    private CustomerService customerService;
-    private HibernateQueryBuilder hibernateQueryBuilder;
-
-    private static final String USER_TABLE_NAME = "User";
+    private final UserDao userDao;
+    private final CustomerService customerService;
+    private final HibernateQueryBuilder hibernateQueryBuilder;
 
     @Autowired
     public UserServiceImpl(UserDao userDao, HibernateQueryBuilder hibernateQueryBuilder,
