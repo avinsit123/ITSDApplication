@@ -1,6 +1,8 @@
 package com.io.request.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name="request")
@@ -28,6 +30,9 @@ public class Request {
     @Column(name = "updated_at")
     private String updationTime;
 
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "request_id")
+    private List<Comment> commentList = new ArrayList<>();
 
     public Request setAssigneeName(String assigneeName) {
         this.assigneeName = assigneeName;
@@ -59,10 +64,13 @@ public class Request {
         return this;
     }
 
-
-
     public Request setId(String id) {
         this.id = id;
+        return this;
+    }
+
+    public Request updateCommentList(Comment comment) {
+        this.commentList.add(comment);
         return this;
     }
 
@@ -94,4 +102,7 @@ public class Request {
         return updationTime;
     }
 
+    public List<Comment> getCommentList() {
+        return this.commentList;
+    }
 }

@@ -1,9 +1,8 @@
 package com.io.request.controller;
 
-import com.io.itsduser.service.UserService;
+import com.io.itsduser.service.RequestService;
 import com.io.request.controller.data.CreateRequestBody;
 import com.io.request.model.Request;
-import com.io.request.services.RequestService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,14 +16,14 @@ import java.util.List;
 @Controller
 public class RequestController {
 
-    private final RequestService requestService;
-    private final UserService userService;
+    private final com.io.request.services.RequestService requestService;
+    private final RequestService userService;
 
     private static final String REQUEST_BASE_URL = "/request";
     private static final Logger logger = LogManager.getLogger(RequestController.class);
 
     @Autowired
-    public RequestController(RequestService requestService, UserService userService) {
+    public RequestController(com.io.request.services.RequestService requestService, RequestService userService) {
         this.requestService = requestService;
         this.userService = userService;
     }

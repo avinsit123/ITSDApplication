@@ -21,15 +21,15 @@ import java.util.UUID;
 import static com.io.TableKt.USER_TABLE_NAME;
 
 @Component
-public class UserServiceImpl implements UserService{
+public class RequestServiceImpl implements RequestService {
 
     private final UserDao userDao;
     private final CustomerService customerService;
     private final HibernateQueryBuilder hibernateQueryBuilder;
 
     @Autowired
-    public UserServiceImpl(UserDao userDao, HibernateQueryBuilder hibernateQueryBuilder,
-                           CustomerService customerService) {
+    public RequestServiceImpl(UserDao userDao, HibernateQueryBuilder hibernateQueryBuilder,
+                              CustomerService customerService) {
         this.userDao = userDao;
         this.hibernateQueryBuilder = hibernateQueryBuilder;
         this.customerService = customerService;

@@ -5,9 +5,7 @@ import com.io.itsduser.controller.model.UpdateUserBody;
 import com.io.itsduser.model.Customer;
 import com.io.itsduser.model.User;
 import com.io.itsduser.service.CustomerService;
-import com.io.itsduser.service.UserService;
-import com.io.request.controller.data.CreateRequestBody;
-import com.io.request.model.Request;
+import com.io.itsduser.service.RequestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,11 +19,11 @@ import java.util.stream.Collectors;
 public class UserController {
 
     private final CustomerService customerService;
-    private final UserService userService;
+    private final RequestService userService;
     private static final String USER_BASE_URL = "/user";
 
     @Autowired
-    public UserController(CustomerService customerService, UserService userService) {
+    public UserController(CustomerService customerService, RequestService userService) {
         this.customerService = customerService;
         this.userService = userService;
     }

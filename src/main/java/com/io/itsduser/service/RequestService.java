@@ -9,7 +9,7 @@ import com.io.request.model.Request;
 
 import java.util.List;
 
-public interface UserService {
+public interface RequestService {
 
     void createUser(CreateUserBody createUserBody);
 
