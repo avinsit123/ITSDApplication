@@ -38,6 +38,8 @@ Every user has one of the following roles
 3. USER
 4. RESPONDER
 
+<details> <summary>Action-Role Mapping</summary>
+
 | Actions         | Roles                  |
 |-----------------|------------------------|
 | Create Request  | USER, ADMIN            |
@@ -47,6 +49,8 @@ Every user has one of the following roles
 | Create Customer | CUSTOMER               |
 | Add Responder   | SUPER_ADMIN            |
 | *All actions*   | SUPER_ADMIN            |
+
+</details>
 
 
 
