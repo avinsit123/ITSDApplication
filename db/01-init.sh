@@ -8,19 +8,19 @@ psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-E
   \connect $APP_DB_NAME $APP_DB_USER
   BEGIN;
         CREATE TABLE IF NOT EXISTS itsd_customer (
-        id CHAR(100) UNIQUE NOT NULL,
-        name CHAR(100),
-        email CHAR(100),
+        id VARCHAR(100) UNIQUE NOT NULL,
+        name VARCHAR(100),
+        email VARCHAR(100),
         PRIMARY KEY(id)
         );
 
         CREATE TABLE IF NOT EXISTS itsd_user (
-        id CHAR(100) UNIQUE NOT NULL,
-        name CHAR(100),
-        email CHAR(100),
-        password CHAR(100),
-        customer_id CHAR(100),
-        role CHAR(100),
+        id VARCHAR(100) UNIQUE NOT NULL,
+        name VARCHAR(100),
+        email VARCHAR(100),
+        password VARCHAR(100),
+        customer_id VARCHAR(100),
+        role VARCHAR(100),
         PRIMARY KEY(id),
         CONSTRAINT customer_user_constraint
         FOREIGN KEY(customer_id)
@@ -28,33 +28,33 @@ psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-E
 
         CREATE TABLE IF NOT EXISTS request (
         id CHAR(100) UNIQUE NOT NULL,
-        assignee_name CHAR(100),
-        status CHAR(100),
-        title CHAR(100),
-        description CHAR(100),
-        created_at CHAR(100),
-        updated_at CHAR(100),
-        user_id CHAR(100),
+        assignee_name VARCHAR(100),
+        status VARCHAR(100),
+        title VARCHAR(100),
+        description VARCHAR(100),
+        created_at VARCHAR(100),
+        updated_at VARCHAR(100),
+        user_id VARCHAR(100),
         PRIMARY KEY(id),
         CONSTRAINT user_request_constraint
         FOREIGN KEY(user_id)
         REFERENCES itsd_user(id));
 
         CREATE TABLE IF NOT EXISTS comment (
-        id CHAR(100) UNIQUE NOT NULL,
-        description CHAR(100),
-        created_at CHAR(100),
-        user_id CHAR(100),
-        request_id CHAR(100),
+        id VARCHAR(100) UNIQUE NOT NULL,
+        description VARCHAR(100),
+        created_at VARCHAR(100),
+        user_name VARCHAR(100),
+        request_id VARCHAR(100),
         CONSTRAINT request_comment_constraint
         FOREIGN KEY(request_id)
         REFERENCES request(id));
 
         CREATE TABLE IF NOT EXISTS responder (
-            id CHAR(100) UNIQUE NOT NULL,
-            name CHAR(100),
-            email CHAR(100),
-            password CHAR(100),
+            id VARCHAR(100) UNIQUE NOT NULL,
+            name VARCHAR(100),
+            email VARCHAR(100),
+            password VARCHAR(100),
             PRIMARY KEY(id));
 
   COMMIT;
