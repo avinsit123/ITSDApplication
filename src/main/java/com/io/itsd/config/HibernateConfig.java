@@ -1,5 +1,6 @@
 package com.io.itsd.config;
 
+import com.io.request.model.Comment;
 import com.io.request.model.Request;
 import com.io.itsduser.model.Customer;
 import com.io.itsduser.model.Responder;
@@ -48,6 +49,7 @@ public class HibernateConfig {
                 .addAnnotatedClass(User.class)
                 .addAnnotatedClass(Responder.class)
                 .addAnnotatedClass(Request.class)
+                .addAnnotatedClass(Comment.class)
                 .buildSessionFactory();
     }
 
