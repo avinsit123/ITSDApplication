@@ -1,7 +1,10 @@
 package com.io.itsduser.model;
 
+import org.yaml.snakeyaml.util.ArrayUtils;
+
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.*;
 
 
 @Entity
@@ -41,11 +44,13 @@ public class Responder implements Serializable {
     }
 
     public Responder setName(String name) {
+
         this.name = name;
         return this;
     }
 
     public String getEmail() {
+        Collections.singletonList(new int[3]);
         return email;
     }
 
