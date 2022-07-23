@@ -6,12 +6,14 @@ import com.io.itsduser.controller.model.UpdateUserBody;
 import com.io.itsduser.dao.UserDao;
 import com.io.itsduser.model.Customer;
 import com.io.itsduser.model.User;
+import com.io.login.LoginUtils;
 import com.io.request.controller.data.CreateRequestBody;
 import com.io.request.model.Request;
 import com.io.request.model.status;
 import com.io.request.model.types.RequestStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import java.time.OffsetDateTime;
@@ -21,15 +23,15 @@ import java.util.UUID;
 import static com.io.TableKt.USER_TABLE_NAME;
 
 @Component
-public class RequestServiceImpl implements RequestService {
+public class UserServiceImpl implements UserService {
 
     private final UserDao userDao;
     private final CustomerService customerService;
     private final HibernateQueryBuilder hibernateQueryBuilder;
 
     @Autowired
-    public RequestServiceImpl(UserDao userDao, HibernateQueryBuilder hibernateQueryBuilder,
-                              CustomerService customerService) {
+    public UserServiceImpl(UserDao userDao, HibernateQueryBuilder hibernateQueryBuilder,
+                           CustomerService customerService) {
         this.userDao = userDao;
         this.hibernateQueryBuilder = hibernateQueryBuilder;
         this.customerService = customerService;
@@ -86,6 +88,41 @@ public class RequestServiceImpl implements RequestService {
         return userDao.get(hibernateQueryBuilder.returnHqlQuery()).get(0);
     }
 
+    public Request insertRequest(CreateRequestBody createRequestBody) {
+        Request request = new Request().setId(UUID.randomUUID().toString())
+                .setTitle(createRequestBody.getTitle())
+                .setDescription(createRequestBody.getDescription())
+                .setStatus("OPEN")
+                .setAssigneeName("UNASSIGNED");
+
+        UserDetails userDetails = LoginUtils.getLoggedInUser();
+        User user = getUserByUsername(userDetails.getUsername());
+        user.addRequest(request);
+        userDao.update(user);
+
+        return request;
+    }
+
+    public Customer getCustomerForLoggedInUser() {
+        UserDetails userDetails = LoginUtils.getLoggedInUser();
+        User user = getUserByUsername(userDetails.getUsername());
+        return getCustomerForUser(user.getId());
+    }
+
+    @Override
+    public User getLoggedInUser() {
+        UserDetails userDetails = LoginUtils.getLoggedInUser();
+        return getUserByUsername(userDetails.getUsername());
+    }
+
+    @Override
+    public User getUserByUsername(String username) {
+        hibernateQueryBuilder.flush();
+        hibernateQueryBuilder.setTableName(USER_TABLE_NAME)
+                .addEqualityFilter("name", username);
+        return userDao.get(hibernateQueryBuilder.returnHqlQuery()).get(0);
+    }
+
     public void deleteUser(String userId) {
         userDao.delete(userId);
     }
@@ -101,4 +138,6 @@ public class RequestServiceImpl implements RequestService {
         }
         return null;
     }
+
+
 }

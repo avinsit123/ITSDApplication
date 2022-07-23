@@ -9,7 +9,7 @@ import com.io.request.model.Request;
 
 import java.util.List;
 
-public interface RequestService {
+public interface UserService {
 
     void createUser(CreateUserBody createUserBody);
 
@@ -18,6 +18,14 @@ public interface RequestService {
     List<Request> getAllRequestsForUser(String userId);
 
     User getUser(String userId);
+
+    Request insertRequest(CreateRequestBody createRequestBody);
+
+    Customer getCustomerForLoggedInUser();
+
+    User getLoggedInUser();
+
+    User getUserByUsername(String username);
 
     void updateUser(UpdateUserBody updateUserBody);
 

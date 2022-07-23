@@ -5,51 +5,47 @@ import com.io.itsduser.controller.model.UpdateUserBody;
 import com.io.itsduser.model.Customer;
 import com.io.itsduser.model.User;
 import com.io.itsduser.service.CustomerService;
-import com.io.itsduser.service.RequestService;
+import com.io.itsduser.service.UserService;
+import com.io.login.LoginUtils;
+import com.io.request.controller.data.CreateRequestBody;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.PriorityQueue;
+
+import static com.io.BaseURLsKt.CUSTOMER_BASE_URL;
+import static com.io.BaseURLsKt.USER_BASE_URL;
 
 @Controller
 public class UserController {
 
     private final CustomerService customerService;
-    private final RequestService userService;
-    private static final String USER_BASE_URL = "/user";
+    private final UserService userService;
 
     @Autowired
-    public UserController(CustomerService customerService, RequestService userService) {
+    public UserController(CustomerService customerService, UserService userService) {
         this.customerService = customerService;
         this.userService = userService;
     }
 
-    @GetMapping(value = USER_BASE_URL + "/create")
-    public String createUser(Model model) {
-        List<Customer> allCustomers = customerService.getAllCustomers();
-        List<String> allCustomerNames = allCustomers.stream()
-                .map(Customer::getName)
-                .collect(Collectors.toList());
-        model.addAttribute("customerNames", allCustomerNames);
+    @GetMapping(value =  CUSTOMER_BASE_URL + USER_BASE_URL + "/create")
+    public String displayCreateUserForm(Model model) {
         model.addAttribute("createUserBody", new CreateUserBody());
         return "CreateUser";
     }
 
-    @GetMapping(value = USER_BASE_URL + "/{customerId}/create")
-    public String createUserWithCustomerId(Model model, @PathVariable String customerId) {
-        model.addAttribute("createUserBody", new CreateUserBody().setCustomerId(customerId));
-        return "CreateUser";
-    }
-
-
-    @PostMapping(value = USER_BASE_URL + "/insert")
+    @PostMapping(value = CUSTOMER_BASE_URL + USER_BASE_URL + "/insert")
     public String insertUser(@ModelAttribute CreateUserBody createUserBody) {
-        customerService.updateCustomerWithNewUser(createUserBody);
-        return "redirect:customer/" + createUserBody.getCustomerId() + "/user";
+        Customer customer = userService.getCustomerForLoggedInUser();
+        customerService.updateCurrentCustomerWithNewUser(createUserBody
+                .setCustomerId(customer.getId()));
+        return "redirect:/homepage";
     }
 
     @GetMapping(value = USER_BASE_URL + "/detail/{id}")
@@ -70,18 +66,30 @@ public class UserController {
     }
 
     @PostMapping(value = USER_BASE_URL + "/update")
-    public RedirectView updateUser(@ModelAttribute UpdateUserBody updateUserBody) {
+    public String updateUser(@ModelAttribute UpdateUserBody updateUserBody) {
         String customerId = userService.getCustomerForUser(updateUserBody.getId()).getId();
         userService.updateUser(updateUserBody);
-        return new RedirectView("/customer/" + customerId +" /user");
+        return "redirect:/customer/user/list";
     }
 
     @GetMapping(value = USER_BASE_URL + "/{id}/delete")
-    public RedirectView deleteUser(@PathVariable String id) {
+    public String deleteUser(@PathVariable String id) {
         String customerId = userService.getCustomerForUser(id).getId();
         userService.deleteUser(id);
-        return new RedirectView("/customer/" + customerId +"/user");
+        return "redirect:/customer/user/list" ;
+
     }
 
+    @GetMapping(value = USER_BASE_URL + "/request/create")
+    public String viewCreateRequestForm(Model model) {
+        model.addAttribute("createRequestBody", new CreateRequestBody());
+        return "CreateRequest";
+    }
+
+    @PostMapping(value = USER_BASE_URL + "/request/insert")
+    public String insertRequest(CreateRequestBody createRequestBody) {
+        userService.insertRequest(createRequestBody);
+        return "CreateRequest";
+    }
 
 }
