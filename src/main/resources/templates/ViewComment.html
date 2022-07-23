@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th=https://www.thymeleaf.org>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+<link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+<body>
+
+<div class="container">
+
+    <div class="row">
+
+        <!-- the comments -->
+        <div th:each="comment: ${commentList}">
+            <h3 ><i class="fa fa-comment" th:text="${comment.userName}"></i>
+                <small th:text="${comment.createdAt}"> 9:41 PM on August 24, 2014</small>
+
+            </h3>
+            <p th:text="${comment.description}"></p>
+        </div>
+
+        <hr>
+
+        <!-- the comment box -->
+        <div class="well">
+            <h4><i class="fa fa-paper-plane-o"></i> Leave a Comment:</h4>
+            <form method="post" th:action="@{'/comment/' + ${requestId} + '/submit' }" th:object="${comment}" role="form">
+                <div class="form-group">
+                    <textarea class="form-control" rows="3" th:field="*{description}"></textarea>
+                </div>
+                <button type="submit" name="say" value="" class="btn btn-primary"><i class="fa fa-reply"></i> Submit</button>
+            </form>
+        </div>
+        </script>
+        <hr>
+
+    </div>
+</div>
+
+</div>
+</div>
+</body>
+</html>

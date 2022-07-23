@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th=https://www.thymeleaf.org>
+<head>
+  <meta charset="UTF-8">
+  <title>View All Requests</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<br><br><br>
+
+<div class="container-md">
+  <div class="list-group" th:each="request : ${requestList}">
+    <div class="list-group-item list-group-item-action flex-column align-items-start">
+<!--    <a href="/request" class="list-group-item list-group-item-action flex-column align-items-start">-->
+      <div class="d-flex w-100 justify-content-between">
+        <h5 class="mb-1" th:text="${request.title}"></h5>
+        <small>3 days ago</small>
+      </div>
+      <p class="mb-1" th:text="${request.description}"></p>
+      <span class="badge badge-primary badge-pill" th:text="${request.status}"></span>
+      <small th:text="${request.assigneeName}"></small>
+        <br>
+        <br>
+        <br>
+        <div class="btn-group" >
+            <a th:href="@{'/responder/' + ${request.id} + '/1'}" class="btn btn-outline-primary" aria-current="page"> OPEN </a>
+            <a th:href="@{'/responder/' + ${request.id} + '/2'}" class="btn btn-outline-secondary"> TRIAGE </a>
+            <a th:href="@{'/responder/' + ${request.id} + '/3'}" class="btn btn-outline-info"> IN PROGRESS </a>
+            <a th:href="@{'/responder/' + ${request.id} + '/4'}" class="btn btn-outline-success"> CLOSED </a>
+            <a th:href="@{'/responder/' + ${request.id} + '/5'}" class="btn btn-outline-danger"> WON'T DO </a>
+            <a th:href="@{'/responder/' + ${request.id} + '/selfAssign'}" class="btn btn-outline-warning"> SELF-ASSIGN </a>
+            <a th:href="@{'/responder/' + ${request.id} + '/unAssign'}" class="btn btn-outline-primary"> UN-ASSIGN </a>
+            <a th:href="@{'/comments/' + ${request.id}}" class="btn btn-outline-link"> COMMENTS </a>
+        </div>
+  </div>
+
+
+<!--    </a>-->
+
+  </div>
+
+  <br><br>
+  <a href="/homepage" class="btn btn-info" role="button">Homepage</a>
+</div>
+

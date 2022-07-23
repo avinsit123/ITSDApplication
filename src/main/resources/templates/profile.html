@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th=https://www.thymeleaf.org>
+<head>
+    <meta charset="UTF-8">
+    <title>User Profile</title>
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+  <style>
+    body{padding-top:20px;}
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-4">
+      <div class="well well-sm">
+        <div class="media">
+          <a class="thumbnail pull-left" href="#">
+            <img class="media-object" src="http://critterapp.pagodabox.com/img/user.jpg">
+          </a>
+          <div class="media-body">
+            <h4 class="media-heading" th:text="${userProfile.name}"></h4>
+            <p><span class="label label-info" th:text="${userProfile.role}"></span>
+              <span class="label label-warning" th:text="${userProfile.requestList.size()} + ' requests'"> </span></p>
+            <p>
+              <a th:href="'mailto:' + ${userProfile.email}" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-comment"></span> Message</a>
+              <a href="#" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-heart"></span> Favorite</a>
+              <a href="#" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-ban-circle"></span> Unfollow</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <a href="/homepage" class="btn btn-info" role="button">Homepage</a>
+</div>
+
+</body>
+</html>

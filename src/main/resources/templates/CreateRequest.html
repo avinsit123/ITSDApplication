@@ -13,7 +13,7 @@
 
 <div class="container">
     <h1> Create New IT Service Desk Request !!</h1>
-    <form method="post"  th:action="@{/request/create}" th:object="${createRequestBody}">
+    <form method="post"  th:action="@{/user/request/insert}" th:object="${createRequestBody}">
         <div class="form-group">
             <label for="title">Title</label>
             <input type="title" class="form-control" id="title" required placeholder="Enter title" name="title" th:field="*{title}">
