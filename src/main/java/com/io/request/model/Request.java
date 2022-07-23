@@ -1,12 +1,13 @@
 package com.io.request.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name="request")
-public class Request {
+public class Request implements Serializable {
 
     @Id
     @Column(name="id")
@@ -32,7 +33,7 @@ public class Request {
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "request_id")
-    private List<Comment> commentList = new ArrayList<>();
+    private List<Comment> commentList;
 
     public Request setAssigneeName(String assigneeName) {
         this.assigneeName = assigneeName;

@@ -1,8 +1,9 @@
 package com.io.request.controller;
 
-import com.io.itsduser.service.RequestService;
+import com.io.itsduser.service.UserService;
 import com.io.request.controller.data.CreateRequestBody;
 import com.io.request.model.Request;
+import com.io.request.services.RequestService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,24 +14,25 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.List;
 
+import static com.io.BaseURLsKt.REQUEST_BASE_URL;
+
 @Controller
 public class RequestController {
 
-    private final com.io.request.services.RequestService requestService;
-    private final RequestService userService;
+    private final RequestService requestService;
+    private final UserService userService;
 
-    private static final String REQUEST_BASE_URL = "/request";
     private static final Logger logger = LogManager.getLogger(RequestController.class);
 
     @Autowired
-    public RequestController(com.io.request.services.RequestService requestService, RequestService userService) {
+    public RequestController(RequestService requestService, UserService userService) {
         this.requestService = requestService;
         this.userService = userService;
     }
 
     @GetMapping(REQUEST_BASE_URL + "/viewAll")
     public String viewAllRequests(Model model) {
-        List<Request> requestList = requestService.getAllRequests();
+        List<Request> requestList = requestService.getAllRequestsForLoggedInUser();
         model.addAttribute("requestList", requestList);
         return "ViewAllRequests";
     }
@@ -63,5 +65,6 @@ public class RequestController {
         String userId = createRequestBody.getUserId();
         return new RedirectView("/request/view/user/" + userId);
     }
+
 
 }
