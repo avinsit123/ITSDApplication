@@ -20,8 +20,8 @@ public class Comment {
     @Column(name = "created_at")
     private String createdAt;
 
-    @Column(name = "user_id")
-    private String userId;
+    @Column(name = "user_name")
+    private String userName;
 
     public String getId() {
         return id;
@@ -50,12 +50,12 @@ public class Comment {
         return this;
     }
 
-    public String getUserId() {
-        return userId;
+    public String getUserName() {
+        return userName;
     }
 
-    public Comment setUserId(String userId) {
-        this.userId = userId;
+    public Comment setUserName(String userId) {
+        this.userName = userId;
         return this;
     }
 }

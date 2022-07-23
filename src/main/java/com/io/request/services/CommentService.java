@@ -7,6 +7,8 @@ import java.util.List;
 
 public interface CommentService {
 
-    List<Comment> getAllCommentsForUser(String userId);
+    List<Comment> getAllCommentsForRequest(String requestId);
+
+    List<Comment> updateRequestWithComment(String requestId, String commentLine);
 
 }
