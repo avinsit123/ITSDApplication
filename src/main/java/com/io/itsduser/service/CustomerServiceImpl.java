@@ -8,7 +8,9 @@ import com.io.itsduser.dao.CustomerDao;
 import com.io.itsduser.model.Customer;
 import com.io.itsduser.model.User;
 import com.io.itsduser.model.types.UserRole;
+import com.io.login.LoginUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -50,7 +52,7 @@ public class CustomerServiceImpl implements CustomerService{
     }
 
     @Override
-    public void updateCustomerWithNewUser(CreateUserBody createUserBody) {
+    public void updateCurrentCustomerWithNewUser(CreateUserBody createUserBody) {
         User user = new User().setId(UUID.randomUUID().toString())
                 .setName(createUserBody.getName())
                 .setEmail(createUserBody.getEmail())
@@ -102,5 +104,7 @@ public class CustomerServiceImpl implements CustomerService{
         hibernateQueryBuilder.addEqualityFilter(attribute, cutoffValue);
         return customerDao.get(hibernateQueryBuilder.returnHqlQuery());
     }
+
+
 
 }

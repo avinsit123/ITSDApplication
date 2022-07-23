@@ -5,6 +5,7 @@ import com.io.itsduser.controller.model.UpdateCustomerBody;
 import com.io.itsduser.model.Customer;
 import com.io.itsduser.model.User;
 import com.io.itsduser.service.CustomerService;
+import com.io.itsduser.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,15 +14,18 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.List;
 
+import static com.io.BaseURLsKt.CUSTOMER_BASE_URL;
+
 @Controller
 public class CustomerController {
 
     private CustomerService customerService;
-    private static final String CUSTOMER_BASE_URL = "/customer";
+    private UserService userService;
 
     @Autowired
-    public CustomerController(CustomerService customerService) {
+    public CustomerController(CustomerService customerService, UserService userService) {
         this.customerService = customerService;
+        this.userService = userService;
     }
 
     @GetMapping(CUSTOMER_BASE_URL + "/create")
@@ -33,7 +37,7 @@ public class CustomerController {
     @PostMapping(value = CUSTOMER_BASE_URL + "/insert")
     public String insertCustomer(@ModelAttribute CreateCustomerBody createCustomerBody){
         customerService.createCustomer(createCustomerBody);
-        return "redirect:customer/list";
+        return "redirect:/homepage";
     }
 
     @GetMapping(value = CUSTOMER_BASE_URL + "/list")
@@ -65,9 +69,9 @@ public class CustomerController {
         return "redirect:list";
     }
 
-    @GetMapping(value = CUSTOMER_BASE_URL + "/{id}/user")
-    public String listUsersForACustomer(Model model, @PathVariable String id) {
-        Customer customer = customerService.retrieveCustomerUsingId(id);
+    @GetMapping(value = CUSTOMER_BASE_URL + "/user/list")
+    public String listUsersForACustomer(Model model) {
+        Customer customer = userService.getCustomerForLoggedInUser();
         List<User> userList = customer.getUserList();
         model.addAttribute("userList", userList);
         model.addAttribute("customer", customer );
